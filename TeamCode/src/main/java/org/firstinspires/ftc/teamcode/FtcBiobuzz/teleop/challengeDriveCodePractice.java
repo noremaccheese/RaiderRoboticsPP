@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+
+@TeleOp
 public class challengeDriveCodePractice extends OpMode {
     private DcMotor intake; //shorthand to just intake
     private DcMotor fLeft;
@@ -18,6 +22,8 @@ public class challengeDriveCodePractice extends OpMode {
         bRight = hardwareMap.get(DcMotor.class, "bRight");
         intake = hardwareMap.get(DcMotor.class, "intakeMotor1");
 
+        fLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        bLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 

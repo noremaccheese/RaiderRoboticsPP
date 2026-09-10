@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.pedroPathing.FtcBiobuzz.auto;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.auto;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -11,7 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 
-
+@Autonomous
 public class challengeAuto extends OpMode {
     ElapsedTime timer = new ElapsedTime();
     private Follower follower;
