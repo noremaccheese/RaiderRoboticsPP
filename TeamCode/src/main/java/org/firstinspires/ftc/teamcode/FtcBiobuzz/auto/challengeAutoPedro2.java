@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.auto;
-
+/*
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 
 @Autonomous
-public class challengeAuto extends OpMode {
+public class challengeAutoPedro2 extends OpMode {
     ElapsedTime timer = new ElapsedTime();
     private Follower follower;
 
@@ -233,3 +233,5 @@ public class challengeAuto extends OpMode {
     }
 
 }
+
+ */
