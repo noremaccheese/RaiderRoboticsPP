@@ -30,13 +30,13 @@ public class challengeAuto extends OpMode {
 
 
     //make Poses
-    private final Pose startPose = p.of(6,6,0);
-    private final Pose pickupPose1 = p.of(136,6,0);
+    private final Pose startPose = p.of(9,8.75,0);
+    private final Pose pickupPose1 = p.of(135,8.75,0);
     private final Pose alignPose1 = p.of(118,24,0);
-    private final Pose alignPose2 = p.of(6,24,90);
-    private final Pose pickupPose2 = p.of(6,66,90);
-    private final Pose alignPose3 = p.of(136,36,90);
-    private final Pose pickupPose3 = p.of(136,66,90);
+    private final Pose alignPose2 = p.of(8.75,24,90);
+    private final Pose pickupPose2 = p.of(8.75,63,90);
+    private final Pose alignPose3 = p.of(135.25,36,90);
+    private final Pose pickupPose3 = p.of(135.25,63,90);
 
 
 
