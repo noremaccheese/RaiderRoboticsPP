@@ -15,7 +15,7 @@ public class Follower {
     private DcMotorEx bLeft;
     private DcMotorEx bRight;
     private final double CPR = 384.5 ;
-    private final double diameter = 1.0; //put in right diameter
+    private final double diameter = 4.094;
     private final double circumference = Math.PI * diameter;
     public enum whichMotor{
         FL,
@@ -23,7 +23,11 @@ public class Follower {
         BL,
         BR
     }
-    private boolean isBusy = false;
+
+    private double targetDistanceY = 0;
+    private double targetDistanceX = 0;
+
+    private boolean isBusy = true;
 
     HeadingPID pid = new HeadingPID();
     public void init(HardwareMap h){
@@ -84,17 +88,8 @@ public class Follower {
 
 
     public double forwardPath(double targetDistance, whichMotor whichMotor){
-        double curDistance = (getDistance(-fLeft.getCurrentPosition()) + getDistance(fRight.getCurrentPosition()) - getDistance(bLeft.getCurrentPosition()) + getDistance(bRight.getCurrentPosition()))/4;
 
-        double distance = targetDistance - curDistance;
-        if(distance < 0 && targetDistance >= 0){
-            distance = 0;
-        }
-        else if(distance > 0 && targetDistance <= 0){
-            distance = 0;
-        }
-
-        double direction = Math.signum(distance);
+        double direction = Math.signum(targetDistanceY);
 
         double fLeftPower = 0;
         double fRightPower = 0;
@@ -105,40 +100,34 @@ public class Follower {
 
 
 
-        if(Math.abs(distance) >= 48){
+        if(Math.abs(targetDistanceY) >= 48){
+            fLeftPower = 0.75*direction;
+            fRightPower = 0.75*direction;
+            bLeftPower = 0.75*direction;
+            bRightPower = 0.75*direction;
+
+        }
+        else if(Math.abs(targetDistanceY) >= 24){
             fLeftPower = 0.5*direction;
             fRightPower = 0.5*direction;
             bLeftPower = 0.5*direction;
             bRightPower = 0.5*direction;
-            isBusy = true;
+
         }
-        else if(Math.abs(distance) >= 24){
+        else if(Math.abs(targetDistanceY) > 0){
             fLeftPower = 0.25*direction;
             fRightPower = 0.25*direction;
             bLeftPower = 0.25*direction;
             bRightPower = 0.25*direction;
-            isBusy = true;
+
         }
-        else if(Math.abs(distance) >= 6){
-            fLeftPower = 0.15*direction;
-            fRightPower = 0.15*direction;
-            bLeftPower = 0.15*direction;
-            bRightPower = 0.15*direction;
-            isBusy = true;
-        }
-        else if(Math.abs(distance) > 0){
-            fLeftPower = 0.1*direction;
-            fRightPower = 0.1*direction;
-            bLeftPower = 0.1*direction;
-            bRightPower = 0.1*direction;
-            isBusy = true;
-        }
+
         else{
             fLeftPower = 0;
             fRightPower = 0;
             bLeftPower = 0;
             bRightPower = 0;
-            isBusy = false;
+
         }
 
         if(whichMotor == Follower.whichMotor.FL){
@@ -158,17 +147,9 @@ public class Follower {
     }
 
     public double strafePath(double targetDistance, whichMotor whichMotor){
-        double curDistance = (getDistance(-fLeft.getCurrentPosition()) - getDistance(fRight.getCurrentPosition()) + getDistance(bLeft.getCurrentPosition()) + getDistance(bRight.getCurrentPosition()))/4;
 
-        double distance = targetDistance - curDistance;
-        if(distance < 0 && targetDistance >= 0){
-            distance = 0;
-        }
-        else if(distance > 0 && targetDistance <= 0){
-            distance = 0;
-        }
 
-        double direction = Math.signum(distance);
+        double direction = Math.signum(targetDistanceX);
 
 
         double fLeftPower = 0;
@@ -180,40 +161,33 @@ public class Follower {
 
 
 
-        if(Math.abs(distance) >= 48){
+        if(Math.abs(targetDistanceX) >= 48){
+            fLeftPower = 0.75*direction;
+            fRightPower = -0.75*direction;
+            bLeftPower = -0.75*direction;
+            bRightPower = 0.75*direction;
+
+        }
+        else if(Math.abs(targetDistanceX) >= 24){
             fLeftPower = 0.5*direction;
             fRightPower = -0.5*direction;
             bLeftPower = -0.5*direction;
             bRightPower = 0.5*direction;
-            isBusy = true;
+
         }
-        else if(Math.abs(distance) >= 24){
+        else if(Math.abs(targetDistanceX) > 0){
             fLeftPower = 0.25*direction;
             fRightPower = -0.25*direction;
             bLeftPower = -0.25*direction;
             bRightPower = 0.25*direction;
-            isBusy = true;
-        }
-        else if(Math.abs(distance) >= 6){
-            fLeftPower = 0.15*direction;
-            fRightPower = -0.15*direction;
-            bLeftPower = -0.15*direction;
-            bRightPower = 0.15*direction;
-            isBusy = true;
-        }
-        else if(Math.abs(distance) > 0){
-            fLeftPower = 0.1*direction;
-            fRightPower = -0.1*direction;
-            bLeftPower = -0.1*direction;
-            bRightPower = 0.1*direction;
-            isBusy = true;
+
         }
         else{
             fLeftPower = 0;
             fRightPower = 0;
             bLeftPower = 0;
             bRightPower = 0;
-            isBusy = false;
+
         }
 
         if(whichMotor == Follower.whichMotor.FL){
@@ -233,11 +207,12 @@ public class Follower {
     }
 
     public void runPath(double distanceX, double distanceY, double targetHeading){
-        double curDistanceY = (-getDistance(fLeft.getCurrentPosition()) + getDistance(fRight.getCurrentPosition()) - getDistance(bLeft.getCurrentPosition()) + getDistance(bRight.getCurrentPosition()))/4;
-        double targetDistanceY = distanceY-curDistanceY;
+        double curDistanceY = (getDistance(fLeft.getCurrentPosition()) + getDistance(fRight.getCurrentPosition()) + getDistance(bLeft.getCurrentPosition()) + getDistance(bRight.getCurrentPosition()))/4;
 
-        double curDistanceX = (-getDistance(fLeft.getCurrentPosition()) - getDistance(fRight.getCurrentPosition()) + getDistance(bLeft.getCurrentPosition()) + getDistance(bRight.getCurrentPosition()))/4;
-        double targetDistanceX = distanceX - curDistanceX;
+        targetDistanceY = distanceY-curDistanceY;
+
+        double curDistanceX = (getDistance(fLeft.getCurrentPosition()) - getDistance(fRight.getCurrentPosition()) - getDistance(bLeft.getCurrentPosition()) + getDistance(bRight.getCurrentPosition()))/4;
+        targetDistanceX = distanceX - curDistanceX;
 
         if(targetDistanceY < 0 && distanceY >= 0){
             targetDistanceY = 0;
@@ -258,10 +233,7 @@ public class Follower {
         double bLeftPower = 0;
         double bRightPower = 0;
 
-        if(!isBusy){
-            resetEncoders();
-            isBusy = true;
-        }
+
 
 
         if(Math.abs(targetDistanceY)>0){
@@ -279,14 +251,80 @@ public class Follower {
             bLeftPower = strafePath(distanceX,whichMotor.BL);
             bRightPower = strafePath(distanceX, whichMotor.BR);
         }
-        double headingCorrection = pid.runPID(0,0,targetHeading);
+        double headingCorrection = pid.runPID(0.015,0.001,targetHeading);
 
-        fLeft.setPower(Range.clip(fLeftPower- headingCorrection, -1,1)); //add in pid constants
+
+//kP 0.015
+//kD 0.001
+        fLeft.setPower(Range.clip(fLeftPower- headingCorrection, -1,1));
         fRight.setPower(Range.clip(fRightPower+headingCorrection, -1,1));
         bLeft.setPower(Range.clip(bLeftPower-headingCorrection, -1,1));
         bRight.setPower(Range.clip(bRightPower+headingCorrection, -1,1));
 
 
+
+    }
+
+    public double getMotorDistance(whichMotor whichMotor) {
+        double motorDistance = 0;
+        if (whichMotor == Follower.whichMotor.FL) {
+            motorDistance = getDistance(fLeft.getCurrentPosition());
+        }
+
+        if (whichMotor == Follower.whichMotor.FR) {
+            motorDistance = getDistance(fRight.getCurrentPosition());
+        }
+
+        if (whichMotor == Follower.whichMotor.BL) {
+            motorDistance = getDistance(bLeft.getCurrentPosition());
+        }
+        if (whichMotor == Follower.whichMotor.BR) {
+            motorDistance = getDistance(bRight.getCurrentPosition());
+        }
+
+        return motorDistance;
+    }
+
+    public double curDistanceY(){
+        return (getDistance(fLeft.getCurrentPosition()) + getDistance(fRight.getCurrentPosition()) + getDistance(bLeft.getCurrentPosition()) + getDistance(bRight.getCurrentPosition()))/4;
+    }
+
+
+    public double curDistanceX(){
+        return (getDistance(fLeft.getCurrentPosition()) - getDistance(fRight.getCurrentPosition()) - getDistance(bLeft.getCurrentPosition()) + getDistance(bRight.getCurrentPosition()))/4;
+    }
+
+    public double getTargetDistanceY(){
+        return targetDistanceY;
+    }
+
+    public double getTargetDistanceX(){
+        return targetDistanceX;
+    }
+
+    /*public boolean isBusy(){
+        isBusy = true;
+        if(targetDistanceX == 0 && targetDistanceY == 0 && Math.abs(pid.getError()) > 5){
+            isBusy = false;
+        }
+
+
+
+        return isBusy;
+    }
+
+     */
+    public boolean isBusy() {
+        return Math.abs(targetDistanceX) > 1.0
+                || Math.abs(targetDistanceY) > 1.0
+                || Math.abs(pid.getError()) > 5.0;
+    }
+
+    public double getHeading(){
+        return pid.getHeading();
+    }
+    public double getHeadingError(){
+        return pid.getError();
     }
 
 

@@ -13,6 +13,7 @@ public class HeadingPIDTuner extends OpMode {
     private double kD = 0;
     private double[] stepSizes = {0.001,0.01,0.1,1};
     private int stepIndex = 0;
+    private boolean hasPressed = false;
 
     HeadingPID pid = new HeadingPID();
 
@@ -53,11 +54,16 @@ public class HeadingPIDTuner extends OpMode {
         }
 
 
-        if(gamepad1.right_bumper){
+        if(gamepad1.right_bumper && !hasPressed){
             stepIndex += 1;
+            hasPressed = true;
         }
-        else if(gamepad1.left_bumper){
+        else if(gamepad1.left_bumper && !hasPressed){
             stepIndex -= 1;
+            hasPressed = true;
+        }
+        if(!gamepad1.right_bumper && !gamepad1.left_bumper){
+            hasPressed= false;
         }
 
 
@@ -76,7 +82,9 @@ public class HeadingPIDTuner extends OpMode {
 
 
 
-
+        telemetry.addData("kP", kP);
+        telemetry.addData("kD", kD);
+        telemetry.addData("Step size", stepSizes[stepIndex]);
         telemetry.addData("Heading", pid.getHeading());
         telemetry.update();
 

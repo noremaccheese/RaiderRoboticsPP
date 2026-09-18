@@ -58,6 +58,13 @@ public class HeadingPID {
     public double getHeading(){
         return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
     }
+    public double getError(){
+        return error;
+    }
 
 
 }
+
+
+//kP 0.015
+//kD 0.001
