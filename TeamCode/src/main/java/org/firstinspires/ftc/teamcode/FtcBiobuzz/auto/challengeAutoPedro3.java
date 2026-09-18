@@ -13,7 +13,7 @@ import static com.pedropathing.api.Paths.*;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 @Autonomous
-public class challengeAuto extends OpMode {
+public class challengeAutoPedro3 extends OpMode {
     ElapsedTime timer = new ElapsedTime();
     private double lastTime;
     private double targetTime;
@@ -33,7 +33,7 @@ public class challengeAuto extends OpMode {
     private final Pose startPose = p.of(9,8.75,0);
     private final Pose pickupPose1 = p.of(135,8.75,0);
     private final Pose alignPose1 = p.of(118,24,0);
-    private final Pose alignPose2 = p.of(8.75,24,90);
+    private final Pose alignPose2 = p.of(8.75,24,90); //wrong pose
     private final Pose pickupPose2 = p.of(8.75,63,90);
     private final Pose alignPose3 = p.of(135.25,36,90);
     private final Pose pickupPose3 = p.of(135.25,63,90);
