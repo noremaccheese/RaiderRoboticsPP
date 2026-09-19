@@ -10,30 +10,26 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.forwardPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.headingPID;
+import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.strafePID;
 import org.firstinspires.ftc.teamcode.CameronPathing.constants;
 
 @TeleOp
-public class HeadingPIDTuner extends OpMode {
+public class strafePIDTuner extends OpMode {
+    constants constants = new constants();
     private double kP = 0;
     private double kD = 0;
     private double[] stepSizes = {0.001,0.01,0.1,1};
     private int stepIndex = 0;
     private boolean hasPressed = false;
 
-    headingPID pid = new headingPID();
-    constants constants = new constants();
+    strafePID pid = new strafePID();
+
 
     @Override
     public void init() {
-        fLeft = hardwareMap.get(DcMotor.class, "fLeft");
-        fRight = hardwareMap.get(DcMotor.class, "fRight");
-        bLeft = hardwareMap.get(DcMotor.class, "bLeft");
-        bRight = hardwareMap.get(DcMotor.class, "bRight");
-
-        fLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        bLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        constants.initMotors(hardwareMap);
         pid.init(hardwareMap);
         telemetry.addLine("Init complete");
     }
@@ -68,10 +64,12 @@ public class HeadingPIDTuner extends OpMode {
         }
 
 
-        double fLeftPower = -pid.runPID(kP,kD,0);
-        double fRightPower = pid.runPID(kP,kD,0);
-        double bLeftPower = -pid.runPID(kP,kD,0);
-        double bRightPower = pid.runPID(kP,kD,0);
+        double pidValue = pid.runPID(kP,kD,0);
+
+        double fLeftPower = pidValue;
+        double fRightPower = -pidValue;
+        double bLeftPower = -pidValue;
+        double bRightPower = pidValue;
 
 
 
@@ -86,7 +84,6 @@ public class HeadingPIDTuner extends OpMode {
         telemetry.addData("kP", kP);
         telemetry.addData("kD", kD);
         telemetry.addData("Step size", stepSizes[stepIndex]);
-        telemetry.addData("Heading", pid.getHeading());
         telemetry.update();
 
 

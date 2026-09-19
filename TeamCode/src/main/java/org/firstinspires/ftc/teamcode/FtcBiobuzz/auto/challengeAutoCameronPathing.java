@@ -1,15 +1,18 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.auto;
 
+import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.curDistanceX;
+import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.curDistanceY;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
+import org.firstinspires.ftc.teamcode.CameronPathing.follower;
 
 @Autonomous
 public class challengeAutoCameronPathing extends OpMode {
-    Follower follower = new Follower();
+    follower follower = new follower();
 
     ElapsedTime timer = new ElapsedTime();
     private double lastTime;
@@ -180,14 +183,14 @@ public class challengeAutoCameronPathing extends OpMode {
         telemetry.addData("Heading Error", follower.getHeadingError());
         telemetry.addData("Is busy", follower.isBusy());
         telemetry.addData("Robot state", robotState);
-        telemetry.addData("Current distance x", follower.curDistanceX());
-        telemetry.addData("Current distance y", follower.curDistanceY());
+        telemetry.addData("Current distance x", curDistanceX());
+        telemetry.addData("Current distance y", curDistanceY());
         telemetry.addData("Target distance x", follower.getTargetDistanceX());
         telemetry.addData("Target distance y", follower.getTargetDistanceY());
-        telemetry.addData("fLeftDistance", follower.getMotorDistance(Follower.whichMotor.FL));
-        telemetry.addData("fRightDistance", follower.getMotorDistance(Follower.whichMotor.FR));
-        telemetry.addData("bLeftDistance", follower.getMotorDistance(Follower.whichMotor.BL));
-        telemetry.addData("bRightDistance", follower.getMotorDistance(Follower.whichMotor.BR));
+        telemetry.addData("fLeftDistance", follower.getMotorDistance(org.firstinspires.ftc.teamcode.CameronPathing.follower.whichMotor.FL));
+        telemetry.addData("fRightDistance", follower.getMotorDistance(org.firstinspires.ftc.teamcode.CameronPathing.follower.whichMotor.FR));
+        telemetry.addData("bLeftDistance", follower.getMotorDistance(org.firstinspires.ftc.teamcode.CameronPathing.follower.whichMotor.BL));
+        telemetry.addData("bRightDistance", follower.getMotorDistance(org.firstinspires.ftc.teamcode.CameronPathing.follower.whichMotor.BR));
         telemetry.update();
     }
 }
