@@ -8,35 +8,47 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 public class constants {
-    public static DcMotor fLeft;
-    public static DcMotor fRight;
-    public static DcMotor bLeft;
-    public static DcMotor bRight;
+    public static DcMotor F_LEFT;
+    public static DcMotor F_RIGHT;
+    public static DcMotor B_LEFT;
+    public static DcMotor B_RIGHT;
     public static final double CPR = 384.5 ; //put in motor cpr and wheel diameter
-    public static final double diameter = 4.094;
+    public static final double DIAMETER = 4.094;
+    public static final double CIRCUMFRENCE = Math.PI * DIAMETER;
     public  static IMU imu;
-    public static final double circumference = Math.PI * diameter;
+
+    public static final double STRAFE_KP = 0;
+    public static final double STRAFE_KD = 0;
+    public static final double FORWARD_KP = 0;
+    public static final double FORWARD_KD = 0;
+    public static final double HEADING_KP = 0.015;
+    public static final double HEADING_KD = 0.001;
+
+    public static final double MAX_POWER = 0.8;
+    public static final double END_PATH_TOLERANCE = 1; //inches
+    public static final double HEADING_TOLERANCE = 2; //degrees
+
 
 
     public void initMotors(HardwareMap h){
-        fLeft = h.get(DcMotorEx .class, "fLeft");
-        fRight = h.get(DcMotorEx.class, "fRight");
-        bLeft = h.get(DcMotorEx.class, "bLeft");
-        bRight = h.get(DcMotorEx.class, "bRight");
+        F_LEFT = h.get(DcMotorEx .class, "fLeft");
+        F_RIGHT = h.get(DcMotorEx.class, "fRight");
+        B_LEFT = h.get(DcMotorEx.class, "bLeft");
+        B_RIGHT = h.get(DcMotorEx.class, "bRight");
 
-        fLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        bLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        F_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
+        B_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        fLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        fRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        F_LEFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        F_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        B_LEFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        B_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
-        fLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        fRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        bLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        bRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        F_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        F_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        B_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        B_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void initIMU(HardwareMap h){

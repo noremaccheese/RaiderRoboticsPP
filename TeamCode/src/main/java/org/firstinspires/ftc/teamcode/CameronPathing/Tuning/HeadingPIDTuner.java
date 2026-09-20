@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.bLeft;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.bRight;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.fLeft;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.fRight;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_RIGHT;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -26,13 +26,13 @@ public class HeadingPIDTuner extends OpMode {
 
     @Override
     public void init() {
-        fLeft = hardwareMap.get(DcMotor.class, "fLeft");
-        fRight = hardwareMap.get(DcMotor.class, "fRight");
-        bLeft = hardwareMap.get(DcMotor.class, "bLeft");
-        bRight = hardwareMap.get(DcMotor.class, "bRight");
+        F_LEFT = hardwareMap.get(DcMotor.class, "fLeft");
+        F_RIGHT = hardwareMap.get(DcMotor.class, "fRight");
+        B_LEFT = hardwareMap.get(DcMotor.class, "bLeft");
+        B_RIGHT = hardwareMap.get(DcMotor.class, "bRight");
 
-        fLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        bLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        F_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
+        B_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
 
         pid.init(hardwareMap);
         telemetry.addLine("Init complete");
@@ -75,10 +75,10 @@ public class HeadingPIDTuner extends OpMode {
 
 
 
-        fLeft.setPower(fLeftPower);
-        fRight.setPower(fRightPower);
-        bLeft.setPower(bLeftPower);
-        bRight.setPower(bRightPower);
+        F_LEFT.setPower(fLeftPower);
+        F_RIGHT.setPower(fRightPower);
+        B_LEFT.setPower(bLeftPower);
+        B_RIGHT.setPower(bRightPower);
 
 
 

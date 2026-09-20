@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.CameronPathing;
 
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.CIRCUMFRENCE;
 import static org.firstinspires.ftc.teamcode.CameronPathing.constants.CPR;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.bLeft;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.bRight;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.circumference;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.fLeft;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.fRight;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_RIGHT;
+
 
 public class helperFunctions {
 
@@ -14,18 +15,18 @@ public class helperFunctions {
     public static double getMotorDistance(follower.whichMotor whichMotor) {
         double motorDistance = 0;
         if (whichMotor == follower.whichMotor.FL) {
-            motorDistance = getDistance(fLeft.getCurrentPosition());
+            motorDistance = getDistance(F_LEFT.getCurrentPosition());
         }
 
         if (whichMotor == follower.whichMotor.FR) {
-            motorDistance = getDistance(fRight.getCurrentPosition());
+            motorDistance = getDistance(F_RIGHT.getCurrentPosition());
         }
 
         if (whichMotor == follower.whichMotor.BL) {
-            motorDistance = getDistance(bLeft.getCurrentPosition());
+            motorDistance = getDistance(B_LEFT.getCurrentPosition());
         }
         if (whichMotor == follower.whichMotor.BR) {
-            motorDistance = getDistance(bRight.getCurrentPosition());
+            motorDistance = getDistance(B_RIGHT.getCurrentPosition());
         }
 
         return motorDistance;
@@ -34,18 +35,18 @@ public class helperFunctions {
 
     public static double getDistance(double position){
         double revolutions = position/CPR;
-        double distance = circumference * revolutions;
+        double distance = CIRCUMFRENCE * revolutions;
 
         return distance;
 
     }
 
     public static double curDistanceY(){
-        return (getDistance(fLeft.getCurrentPosition()) + getDistance(fRight.getCurrentPosition()) + getDistance(bLeft.getCurrentPosition()) + getDistance(bRight.getCurrentPosition()))/4;
+        return (getDistance(F_LEFT.getCurrentPosition()) + getDistance(F_RIGHT.getCurrentPosition()) + getDistance(B_LEFT.getCurrentPosition()) + getDistance(B_RIGHT.getCurrentPosition()))/4;
     }
 
 
     public static double curDistanceX(){
-        return (getDistance(fLeft.getCurrentPosition()) - getDistance(fRight.getCurrentPosition()) - getDistance(bLeft.getCurrentPosition()) + getDistance(bRight.getCurrentPosition()))/4;
+        return (getDistance(F_LEFT.getCurrentPosition()) - getDistance(F_RIGHT.getCurrentPosition()) - getDistance(B_LEFT.getCurrentPosition()) + getDistance(B_RIGHT.getCurrentPosition()))/4;
     }
 }

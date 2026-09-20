@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.bLeft;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.bRight;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.fLeft;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.fRight;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_RIGHT;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -72,10 +72,10 @@ public class forwardPIDTuner extends OpMode {
 
 
 
-        fLeft.setPower(fLeftPower);
-        fRight.setPower(fRightPower);
-        bLeft.setPower(bLeftPower);
-        bRight.setPower(bRightPower);
+        F_LEFT.setPower(fLeftPower);
+        F_RIGHT.setPower(fRightPower);
+        B_LEFT.setPower(bLeftPower);
+        B_RIGHT.setPower(bRightPower);
 
 
 

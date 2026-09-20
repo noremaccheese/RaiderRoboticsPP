@@ -1,9 +1,18 @@
 package org.firstinspires.ftc.teamcode.CameronPathing;
 
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.bLeft;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.bRight;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.fLeft;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.fRight;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.END_PATH_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.FORWARD_KD;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.FORWARD_KP;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.HEADING_KD;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.HEADING_KP;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.HEADING_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.MAX_POWER;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.STRAFE_KD;
+import static org.firstinspires.ftc.teamcode.CameronPathing.constants.STRAFE_KP;
 import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.curDistanceX;
 import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.curDistanceY;
 import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.getDistance;
@@ -29,7 +38,6 @@ public class follower {
     private double targetDistanceY = 0;
     private double targetDistanceX = 0;
 
-    private boolean isBusy = true;
 
     headingPID headingPID = new headingPID();
     forwardPID forwardPID = new forwardPID();
@@ -47,19 +55,17 @@ public class follower {
 
 
     public void resetEncoders(){
-        fLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        fRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        F_LEFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        F_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        B_LEFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        B_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
-        fLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        fRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        bLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        bRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        F_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        F_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        B_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        B_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
-
-
 
 
 
@@ -69,31 +75,19 @@ public class follower {
         targetDistanceY = distanceY-curDistanceY();
         targetDistanceX = distanceX - curDistanceX();
 
-        if(targetDistanceY < 0 && distanceY >= 0){
-            targetDistanceY = 0;
-        }
-        else if (targetDistanceY > 0 && distanceY <= 0) {
-            targetDistanceY = 0;
-        }
-        if(targetDistanceX < 0 && distanceX >= 0){
-            targetDistanceX = 0;
-        }
-        else if (targetDistanceX > 0 && distanceX <= 0) {
-            targetDistanceX = 0;
-        }
 
 
 
-        double headingCorrection = headingPID.runPID(0.015,0.001,targetHeading);
-        double forwardPIDValue = forwardPID.runPID(0,0,targetDistanceY);
-        double strafePIDValue = strafePID.runPID(0,0,targetDistanceX);
+        double headingCorrection = headingPID.runPID(HEADING_KP,HEADING_KD,targetHeading);
+        double forwardPIDValue = forwardPID.runPID(FORWARD_KP,FORWARD_KD,targetDistanceY);
+        double strafePIDValue = strafePID.runPID(STRAFE_KP,STRAFE_KD,targetDistanceX);
 
 
 
-        fLeft.setPower(Range.clip(forwardPIDValue + strafePIDValue - headingCorrection, -1,1));
-        fRight.setPower(Range.clip(forwardPIDValue - strafePIDValue +headingCorrection, -1,1));
-        bLeft.setPower(Range.clip(forwardPIDValue - strafePIDValue -headingCorrection, -1,1));
-        bRight.setPower(Range.clip(forwardPIDValue  + strafePIDValue +headingCorrection, -1,1));
+        F_LEFT.setPower(Range.clip(forwardPIDValue + strafePIDValue - headingCorrection, -MAX_POWER,MAX_POWER));
+        F_RIGHT.setPower(Range.clip(forwardPIDValue - strafePIDValue +headingCorrection, -MAX_POWER,MAX_POWER));
+        B_LEFT.setPower(Range.clip(forwardPIDValue - strafePIDValue -headingCorrection, -MAX_POWER,MAX_POWER));
+        B_RIGHT.setPower(Range.clip(forwardPIDValue  + strafePIDValue +headingCorrection, -MAX_POWER,MAX_POWER));
 
 
 
@@ -102,18 +96,18 @@ public class follower {
     public double getMotorDistance(whichMotor whichMotor) {
         double motorDistance = 0;
         if (whichMotor == follower.whichMotor.FL) {
-            motorDistance = getDistance(fLeft.getCurrentPosition());
+            motorDistance = getDistance(F_LEFT.getCurrentPosition());
         }
 
         if (whichMotor == follower.whichMotor.FR) {
-            motorDistance = getDistance(fRight.getCurrentPosition());
+            motorDistance = getDistance(F_RIGHT.getCurrentPosition());
         }
 
         if (whichMotor == follower.whichMotor.BL) {
-            motorDistance = getDistance(bLeft.getCurrentPosition());
+            motorDistance = getDistance(B_LEFT.getCurrentPosition());
         }
         if (whichMotor == follower.whichMotor.BR) {
-            motorDistance = getDistance(bRight.getCurrentPosition());
+            motorDistance = getDistance(B_RIGHT.getCurrentPosition());
         }
 
         return motorDistance;
@@ -130,9 +124,9 @@ public class follower {
 
 
     public boolean isBusy() {
-        return Math.abs(targetDistanceX) > 1.0
-                || Math.abs(targetDistanceY) > 1.0
-                || Math.abs(headingPID.getError()) > 5.0;
+        return Math.abs(targetDistanceX) > END_PATH_TOLERANCE
+                || Math.abs(targetDistanceY) > END_PATH_TOLERANCE
+                || Math.abs(headingPID.getError()) > HEADING_TOLERANCE;
     }
 
     public double getHeading(){
