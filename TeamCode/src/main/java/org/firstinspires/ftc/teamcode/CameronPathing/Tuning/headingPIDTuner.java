@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_LEFT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_LEFT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.F_RIGHT;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,10 +11,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.headingPID;
-import org.firstinspires.ftc.teamcode.CameronPathing.constants;
+import org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants;
 
 @TeleOp
-public class HeadingPIDTuner extends OpMode {
+public class headingPIDTuner extends OpMode {
     private double kP = 0;
     private double kD = 0;
     private double[] stepSizes = {0.001,0.01,0.1,1};
@@ -22,7 +22,7 @@ public class HeadingPIDTuner extends OpMode {
     private boolean hasPressed = false;
 
     headingPID pid = new headingPID();
-    constants constants = new constants();
+    Constants constants = new Constants();
 
     @Override
     public void init() {

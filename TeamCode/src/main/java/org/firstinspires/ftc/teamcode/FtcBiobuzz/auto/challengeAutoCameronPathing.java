@@ -1,18 +1,18 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.auto;
 
-import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.curDistanceX;
-import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.curDistanceY;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.helperFunctions.curDistanceX;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.helperFunctions.curDistanceY;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.follower;
+import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
 @Autonomous
 public class challengeAutoCameronPathing extends OpMode {
-    follower follower = new follower();
+    Follower follower = new Follower();
 
     ElapsedTime timer = new ElapsedTime();
     private double lastTime;
@@ -187,10 +187,10 @@ public class challengeAutoCameronPathing extends OpMode {
         telemetry.addData("Current distance y", curDistanceY());
         telemetry.addData("Target distance x", follower.getTargetDistanceX());
         telemetry.addData("Target distance y", follower.getTargetDistanceY());
-        telemetry.addData("fLeftDistance", follower.getMotorDistance(org.firstinspires.ftc.teamcode.CameronPathing.follower.whichMotor.FL));
-        telemetry.addData("fRightDistance", follower.getMotorDistance(org.firstinspires.ftc.teamcode.CameronPathing.follower.whichMotor.FR));
-        telemetry.addData("bLeftDistance", follower.getMotorDistance(org.firstinspires.ftc.teamcode.CameronPathing.follower.whichMotor.BL));
-        telemetry.addData("bRightDistance", follower.getMotorDistance(org.firstinspires.ftc.teamcode.CameronPathing.follower.whichMotor.BR));
+        telemetry.addData("fLeftDistance", follower.getMotorDistance(Follower.whichMotor.FL));
+        telemetry.addData("fRightDistance", follower.getMotorDistance(Follower.whichMotor.FR));
+        telemetry.addData("bLeftDistance", follower.getMotorDistance(Follower.whichMotor.BL));
+        telemetry.addData("bRightDistance", follower.getMotorDistance(Follower.whichMotor.BR));
         telemetry.update();
     }
 }

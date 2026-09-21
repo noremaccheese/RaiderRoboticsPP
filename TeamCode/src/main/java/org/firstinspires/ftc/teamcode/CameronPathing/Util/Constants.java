@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.CameronPathing;
+package org.firstinspires.ftc.teamcode.CameronPathing.Util;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,14 +7,14 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
-public class constants {
+public class Constants {
     public static DcMotor F_LEFT;
     public static DcMotor F_RIGHT;
     public static DcMotor B_LEFT;
     public static DcMotor B_RIGHT;
     public static final double CPR = 384.5 ; //put in motor cpr and wheel diameter
     public static final double DIAMETER = 4.094;
-    public static final double CIRCUMFRENCE = Math.PI * DIAMETER;
+    public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
     public  static IMU imu;
 
     public static final double STRAFE_KP = 0;

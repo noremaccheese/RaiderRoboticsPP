@@ -2,19 +2,17 @@ package org.firstinspires.ftc.teamcode.CameronPathing.PIDs;
 
 
 
-import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.curDistanceX;
-import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.getDistance;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.helperFunctions.curDistanceX;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.constants;
+import org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants;
 
 public class strafePID {
 
-    constants constants = new constants();
+    Constants constants = new Constants();
     ElapsedTime timer = new ElapsedTime();
 
     double error = 0;

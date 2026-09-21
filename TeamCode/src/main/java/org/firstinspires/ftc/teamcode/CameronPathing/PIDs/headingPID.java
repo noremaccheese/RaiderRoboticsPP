@@ -6,12 +6,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.CameronPathing.constants;
+import org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants;
 
 
 public class headingPID {
 
-    constants constants = new constants();
+    Constants constants = new Constants();
     ElapsedTime timer = new ElapsedTime();
     private IMU imu = constants.imu;
     double error = 0;

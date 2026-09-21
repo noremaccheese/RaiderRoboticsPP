@@ -1,31 +1,33 @@
-package org.firstinspires.ftc.teamcode.CameronPathing;
+package org.firstinspires.ftc.teamcode.CameronPathing.Util;
 
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_LEFT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.CIRCUMFRENCE;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.CPR;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_LEFT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.CIRCUMFERENCE;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.CPR;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.F_RIGHT;
+
+import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
 
 public class helperFunctions {
 
 
 
-    public static double getMotorDistance(follower.whichMotor whichMotor) {
+    public static double getMotorDistance(Follower.whichMotor whichMotor) {
         double motorDistance = 0;
-        if (whichMotor == follower.whichMotor.FL) {
+        if (whichMotor == Follower.whichMotor.FL) {
             motorDistance = getDistance(F_LEFT.getCurrentPosition());
         }
 
-        if (whichMotor == follower.whichMotor.FR) {
+        if (whichMotor == Follower.whichMotor.FR) {
             motorDistance = getDistance(F_RIGHT.getCurrentPosition());
         }
 
-        if (whichMotor == follower.whichMotor.BL) {
+        if (whichMotor == Follower.whichMotor.BL) {
             motorDistance = getDistance(B_LEFT.getCurrentPosition());
         }
-        if (whichMotor == follower.whichMotor.BR) {
+        if (whichMotor == Follower.whichMotor.BR) {
             motorDistance = getDistance(B_RIGHT.getCurrentPosition());
         }
 
@@ -35,7 +37,7 @@ public class helperFunctions {
 
     public static double getDistance(double position){
         double revolutions = position/CPR;
-        double distance = CIRCUMFRENCE * revolutions;
+        double distance = CIRCUMFERENCE * revolutions;
 
         return distance;
 

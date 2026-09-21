@@ -1,21 +1,21 @@
 package org.firstinspires.ftc.teamcode.CameronPathing;
 
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_LEFT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.END_PATH_TOLERANCE;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.FORWARD_KD;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.FORWARD_KP;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_LEFT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.F_RIGHT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.HEADING_KD;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.HEADING_KP;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.HEADING_TOLERANCE;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.MAX_POWER;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.STRAFE_KD;
-import static org.firstinspires.ftc.teamcode.CameronPathing.constants.STRAFE_KP;
-import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.curDistanceX;
-import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.curDistanceY;
-import static org.firstinspires.ftc.teamcode.CameronPathing.helperFunctions.getDistance;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.END_PATH_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.FORWARD_KD;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.FORWARD_KP;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.HEADING_KD;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.HEADING_KP;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.HEADING_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.MAX_POWER;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.STRAFE_KD;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.STRAFE_KP;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.helperFunctions.curDistanceX;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.helperFunctions.curDistanceY;
+import static org.firstinspires.ftc.teamcode.CameronPathing.Util.helperFunctions.getDistance;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -24,9 +24,10 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.forwardPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.headingPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.strafePID;
+import org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants;
 
-public class follower {
-    constants constants = new constants();
+public class Follower {
+    Constants constants = new Constants();
 
     public enum whichMotor{
         FL,
@@ -95,18 +96,18 @@ public class follower {
 
     public double getMotorDistance(whichMotor whichMotor) {
         double motorDistance = 0;
-        if (whichMotor == follower.whichMotor.FL) {
+        if (whichMotor == Follower.whichMotor.FL) {
             motorDistance = getDistance(F_LEFT.getCurrentPosition());
         }
 
-        if (whichMotor == follower.whichMotor.FR) {
+        if (whichMotor == Follower.whichMotor.FR) {
             motorDistance = getDistance(F_RIGHT.getCurrentPosition());
         }
 
-        if (whichMotor == follower.whichMotor.BL) {
+        if (whichMotor == Follower.whichMotor.BL) {
             motorDistance = getDistance(B_LEFT.getCurrentPosition());
         }
-        if (whichMotor == follower.whichMotor.BR) {
+        if (whichMotor == Follower.whichMotor.BR) {
             motorDistance = getDistance(B_RIGHT.getCurrentPosition());
         }
 
