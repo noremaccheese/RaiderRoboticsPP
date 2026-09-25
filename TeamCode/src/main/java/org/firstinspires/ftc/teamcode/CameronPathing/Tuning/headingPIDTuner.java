@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.B_LEFT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.F_LEFT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.headingPID;
-import org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
 
 @TeleOp
 public class headingPIDTuner extends OpMode {

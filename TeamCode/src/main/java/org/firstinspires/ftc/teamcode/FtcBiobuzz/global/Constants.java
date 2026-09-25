@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.CameronPathing.Util;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.global;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -28,7 +28,7 @@ public class Constants {
     public static final double END_PATH_TOLERANCE = 1; //inches
     public static final double HEADING_TOLERANCE = 2; //degrees
 
-
+    public static final double FLYWHEEL_KP = 0;
 
     public void initMotors(HardwareMap h){
         F_LEFT = h.get(DcMotorEx .class, "fLeft");

@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.auto;
 
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.helperFunctions.curDistanceX;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.helperFunctions.curDistanceY;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.helperFunctions.curDistanceX;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.helperFunctions.curDistanceY;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -16,7 +16,7 @@ public class challengeAutoCameronPathing extends OpMode {
 
     ElapsedTime timer = new ElapsedTime();
     private double lastTime;
-    private double targetTime = 0.5;
+    private final double targetTime = 0.5;
 
     private DcMotor intake;
 

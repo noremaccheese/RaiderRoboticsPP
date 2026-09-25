@@ -1,21 +1,18 @@
 package org.firstinspires.ftc.teamcode.CameronPathing;
 
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.B_LEFT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.END_PATH_TOLERANCE;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.FORWARD_KD;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.FORWARD_KP;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.F_LEFT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.F_RIGHT;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.HEADING_KD;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.HEADING_KP;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.HEADING_TOLERANCE;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.MAX_POWER;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.STRAFE_KD;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants.STRAFE_KP;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.helperFunctions.curDistanceX;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.helperFunctions.curDistanceY;
-import static org.firstinspires.ftc.teamcode.CameronPathing.Util.helperFunctions.getDistance;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.END_PATH_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.FORWARD_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.FORWARD_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.HEADING_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.HEADING_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.HEADING_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.MAX_POWER;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.STRAFE_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.STRAFE_KP;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -24,9 +21,10 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.forwardPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.headingPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.strafePID;
-import org.firstinspires.ftc.teamcode.CameronPathing.Util.Constants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.helperFunctions;
 
-public class Follower {
+public class Follower extends helperFunctions {
     Constants constants = new Constants();
 
     public enum whichMotor{
@@ -94,25 +92,6 @@ public class Follower {
 
     }
 
-    public double getMotorDistance(whichMotor whichMotor) {
-        double motorDistance = 0;
-        if (whichMotor == Follower.whichMotor.FL) {
-            motorDistance = getDistance(F_LEFT.getCurrentPosition());
-        }
-
-        if (whichMotor == Follower.whichMotor.FR) {
-            motorDistance = getDistance(F_RIGHT.getCurrentPosition());
-        }
-
-        if (whichMotor == Follower.whichMotor.BL) {
-            motorDistance = getDistance(B_LEFT.getCurrentPosition());
-        }
-        if (whichMotor == Follower.whichMotor.BR) {
-            motorDistance = getDistance(B_RIGHT.getCurrentPosition());
-        }
-
-        return motorDistance;
-    }
 
 
     public double getTargetDistanceY(){
