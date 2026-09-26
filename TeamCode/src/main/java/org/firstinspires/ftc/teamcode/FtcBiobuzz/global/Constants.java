@@ -45,14 +45,14 @@ public class Constants {
         F_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         B_LEFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         B_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        FLYWHEEL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FLYWHEEL.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
 
         F_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         F_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         B_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         B_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        FLYWHEEL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        FLYWHEEL.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
     }
 
     public void initIMU(HardwareMap h){
