@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.helperFunctions.curDistanceX;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.helperFunctions.curDistanceY;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceX;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceY;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,17 +9,36 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
 @TeleOp
-public class forwardTest extends OpMode {
+public class LineTest extends OpMode {
     Follower follower = new Follower();
-    @Override
-    public void init() {
-        follower.init(hardwareMap);
-        telemetry.addLine("Init complete");
+    private boolean forward = true;
+    private final double lineDistance = 24;
+
+    public void runForwardPath(){
+        follower.runPath(0,lineDistance,0);
+    }
+    public void runBackwardPath(){
+        follower.runPath(0,-lineDistance,0);
     }
 
-    @Override
-    public void loop() {
-        follower.runPath(0,24,0);
+    public void init(){
+        follower.init(hardwareMap);
+        telemetry.addLine("init complete");
+    }
+
+
+    public void loop(){
+        if(forward){
+            runForwardPath();
+        }
+        else if(!forward){
+            runBackwardPath();
+        }
+
+        if (!follower.isBusy()){
+            forward = !forward;
+        }
+
         telemetry.addData("Heading", follower.getHeading());
         telemetry.addData("Heading Error", follower.getHeadingError());
         telemetry.addData("Is busy", follower.isBusy());
@@ -32,6 +51,5 @@ public class forwardTest extends OpMode {
         telemetry.addData("bLeftDistance", follower.getMotorDistance(Follower.whichMotor.BL));
         telemetry.addData("bRightDistance", follower.getMotorDistance(Follower.whichMotor.BR));
         telemetry.update();
-
     }
 }

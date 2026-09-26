@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.PIDs;
 
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.helperFunctions.curDistanceY;
+
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceX;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -9,7 +10,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
 
-public class forwardPID {
+public class StrafePID {
 
     Constants constants = new Constants();
     ElapsedTime timer = new ElapsedTime();
@@ -27,7 +28,7 @@ public class forwardPID {
 
 
     public double runPID(double kP, double kD, double target){
-        double curDistance = curDistanceY();
+        double curDistance = curDistanceX();
 
         lastError = error;
         error = target - curDistance;

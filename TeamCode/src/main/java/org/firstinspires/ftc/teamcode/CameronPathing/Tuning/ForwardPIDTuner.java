@@ -7,33 +7,25 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.headingPID;
+import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.ForwardPID;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
 
 @TeleOp
-public class headingPIDTuner extends OpMode {
+public class ForwardPIDTuner extends OpMode {
+    Constants constants = new Constants();
     private double kP = 0;
     private double kD = 0;
     private double[] stepSizes = {0.001,0.01,0.1,1};
     private int stepIndex = 0;
     private boolean hasPressed = false;
 
-    headingPID pid = new headingPID();
-    Constants constants = new Constants();
+    ForwardPID pid = new ForwardPID();
+
 
     @Override
     public void init() {
-        F_LEFT = hardwareMap.get(DcMotor.class, "fLeft");
-        F_RIGHT = hardwareMap.get(DcMotor.class, "fRight");
-        B_LEFT = hardwareMap.get(DcMotor.class, "bLeft");
-        B_RIGHT = hardwareMap.get(DcMotor.class, "bRight");
-
-        F_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
-        B_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        constants.initMotors(hardwareMap);
         pid.init(hardwareMap);
         telemetry.addLine("Init complete");
     }
@@ -68,10 +60,12 @@ public class headingPIDTuner extends OpMode {
         }
 
 
-        double fLeftPower = -pid.runPID(kP,kD,0);
-        double fRightPower = pid.runPID(kP,kD,0);
-        double bLeftPower = -pid.runPID(kP,kD,0);
-        double bRightPower = pid.runPID(kP,kD,0);
+        double pidValue = pid.runPID(kP,kD,0);
+
+        double fLeftPower = pidValue;
+        double fRightPower = pidValue;
+        double bLeftPower = pidValue;
+        double bRightPower = pidValue;
 
 
 
@@ -86,7 +80,6 @@ public class headingPIDTuner extends OpMode {
         telemetry.addData("kP", kP);
         telemetry.addData("kD", kD);
         telemetry.addData("Step size", stepSizes[stepIndex]);
-        telemetry.addData("Heading", pid.getHeading());
         telemetry.update();
 
 

@@ -10,11 +10,11 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.strafePID;
+import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.StrafePID;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
 
 @TeleOp
-public class strafePIDTuner extends OpMode {
+public class StrafePIDTuner extends OpMode {
     Constants constants = new Constants();
     private double kP = 0;
     private double kD = 0;
@@ -22,7 +22,7 @@ public class strafePIDTuner extends OpMode {
     private int stepIndex = 0;
     private boolean hasPressed = false;
 
-    strafePID pid = new strafePID();
+    StrafePID pid = new StrafePID();
 
 
     @Override

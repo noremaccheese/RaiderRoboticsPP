@@ -10,7 +10,7 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
 
-public class helperFunctions {
+public class HelperFunctions {
 
 
 

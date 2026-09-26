@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.helperFunctions.curDistanceX;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.helperFunctions.curDistanceY;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceX;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceY;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,35 +9,20 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
 @TeleOp
-public class lineTest extends OpMode {
+public class StrafeTest extends OpMode {
     Follower follower = new Follower();
-    private boolean forward = true;
-    private final double lineDistance = 24;
 
-    public void runForwardPath(){
-        follower.runPath(0,lineDistance,0);
-    }
-    public void runBackwardPath(){
-        follower.runPath(0,-lineDistance,0);
-    }
 
     public void init(){
         follower.init(hardwareMap);
-        telemetry.addLine("init complete");
+        telemetry.addLine("Init complete");
     }
 
+    @Override
+    public void loop() {
+        follower.runPath(24,0,0);
 
-    public void loop(){
-        if(forward){
-            runForwardPath();
-        }
-        else if(!forward){
-            runBackwardPath();
-        }
 
-        if (!follower.isBusy()){
-            forward = !forward;
-        }
 
         telemetry.addData("Heading", follower.getHeading());
         telemetry.addData("Heading Error", follower.getHeadingError());
