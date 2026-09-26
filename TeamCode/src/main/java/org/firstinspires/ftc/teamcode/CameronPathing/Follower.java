@@ -22,17 +22,12 @@ import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.forwardPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.headingPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.strafePID;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.helperFunctions;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions;
 
-public class Follower extends helperFunctions {
+public class Follower extends HelperFunctions {
     Constants constants = new Constants();
 
-    public enum whichMotor{
-        FL,
-        FR,
-        BL,
-        BR
-    }
+
 
     private double targetDistanceY = 0;
     private double targetDistanceX = 0;

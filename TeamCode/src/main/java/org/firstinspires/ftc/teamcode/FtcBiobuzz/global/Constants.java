@@ -8,10 +8,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 public class Constants {
-    public static DcMotor F_LEFT;
-    public static DcMotor F_RIGHT;
-    public static DcMotor B_LEFT;
-    public static DcMotor B_RIGHT;
+    public static DcMotorEx F_LEFT;
+    public static DcMotorEx F_RIGHT;
+    public static DcMotorEx B_LEFT;
+    public static DcMotorEx B_RIGHT;
+    public static DcMotorEx FLYWHEEL;
     public static final double CPR = 384.5 ; //put in motor cpr and wheel diameter
     public static final double DIAMETER = 4.094;
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
@@ -35,6 +36,7 @@ public class Constants {
         F_RIGHT = h.get(DcMotorEx.class, "fRight");
         B_LEFT = h.get(DcMotorEx.class, "bLeft");
         B_RIGHT = h.get(DcMotorEx.class, "bRight");
+        FLYWHEEL = h.get(DcMotorEx.class, "flywheel");
 
         F_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
         B_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -43,12 +45,14 @@ public class Constants {
         F_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         B_LEFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         B_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FLYWHEEL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
         F_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         F_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         B_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         B_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        FLYWHEEL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void initIMU(HardwareMap h){

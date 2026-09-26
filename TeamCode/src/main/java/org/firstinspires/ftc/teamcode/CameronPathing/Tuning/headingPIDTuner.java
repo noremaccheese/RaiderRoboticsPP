@@ -26,14 +26,7 @@ public class headingPIDTuner extends OpMode {
 
     @Override
     public void init() {
-        F_LEFT = hardwareMap.get(DcMotor.class, "fLeft");
-        F_RIGHT = hardwareMap.get(DcMotor.class, "fRight");
-        B_LEFT = hardwareMap.get(DcMotor.class, "bLeft");
-        B_RIGHT = hardwareMap.get(DcMotor.class, "bRight");
-
-        F_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
-        B_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        constants.initMotors(hardwareMap);
         pid.init(hardwareMap);
         telemetry.addLine("Init complete");
     }
