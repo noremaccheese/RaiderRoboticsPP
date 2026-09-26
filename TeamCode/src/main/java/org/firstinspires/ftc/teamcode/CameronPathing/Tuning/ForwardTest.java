@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
 @TeleOp
-public class forwardTest extends OpMode {
+public class ForwardTest extends OpMode {
     Follower follower = new Follower();
     @Override
     public void init() {
