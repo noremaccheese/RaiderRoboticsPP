@@ -9,36 +9,17 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
 @TeleOp
-public class lineTest extends OpMode {
+public class ForwardTest extends OpMode {
     Follower follower = new Follower();
-    private boolean forward = true;
-    private final double lineDistance = 24;
-
-    public void runForwardPath(){
-        follower.runPath(0,lineDistance,0);
-    }
-    public void runBackwardPath(){
-        follower.runPath(0,-lineDistance,0);
-    }
-
-    public void init(){
+    @Override
+    public void init() {
         follower.init(hardwareMap);
-        telemetry.addLine("init complete");
+        telemetry.addLine("Init complete");
     }
 
-
-    public void loop(){
-        if(forward){
-            runForwardPath();
-        }
-        else if(!forward){
-            runBackwardPath();
-        }
-
-        if (!follower.isBusy()){
-            forward = !forward;
-        }
-
+    @Override
+    public void loop() {
+        follower.runPath(0,24,0);
         telemetry.addData("Heading", follower.getHeading());
         telemetry.addData("Heading Error", follower.getHeadingError());
         telemetry.addData("Is busy", follower.isBusy());
@@ -51,5 +32,6 @@ public class lineTest extends OpMode {
         telemetry.addData("bLeftDistance", follower.getMotorDistance(Follower.whichMotor.BL));
         telemetry.addData("bRightDistance", follower.getMotorDistance(Follower.whichMotor.BR));
         telemetry.update();
+
     }
 }

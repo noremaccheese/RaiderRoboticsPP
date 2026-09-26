@@ -4,44 +4,41 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.c
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceY;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
-public class driveAndRotateTest extends OpMode {
-
+@TeleOp
+public class LineTest extends OpMode {
     Follower follower = new Follower();
-    private boolean strafe = false;
-    private double pathDistanceX = 0;
-    private double pathDistanceY = 0;
-    private boolean hasAnswered = false;
+    private boolean forward = true;
+    private final double lineDistance = 24;
 
-    @Override
-    public void init() {
+    public void runForwardPath(){
+        follower.runPath(0,lineDistance,0);
+    }
+    public void runBackwardPath(){
+        follower.runPath(0,-lineDistance,0);
+    }
+
+    public void init(){
         follower.init(hardwareMap);
+        telemetry.addLine("init complete");
     }
 
-    @Override
-    public void init_loop() {
-        if(!hasAnswered){
-            telemetry.addLine("If strafe, push a. Otherwise, press b");
-            if (gamepad1.a){
-                pathDistanceX = 24;
-                hasAnswered = true;
-            }
-            else if (gamepad1.b){
-                pathDistanceY = 24;
-                hasAnswered = true;
-            }
 
-            if(hasAnswered){
-                telemetry.addLine("Init complete");
-            }
+    public void loop(){
+        if(forward){
+            runForwardPath();
         }
-    }
+        else if(!forward){
+            runBackwardPath();
+        }
 
-    @Override
-    public void loop() {
-        follower.runPath(pathDistanceX,pathDistanceY,90);
+        if (!follower.isBusy()){
+            forward = !forward;
+        }
+
         telemetry.addData("Heading", follower.getHeading());
         telemetry.addData("Heading Error", follower.getHeadingError());
         telemetry.addData("Is busy", follower.isBusy());

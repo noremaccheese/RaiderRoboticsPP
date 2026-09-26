@@ -7,21 +7,19 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.headingPID;
+import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
 
 @TeleOp
-public class headingPIDTuner extends OpMode {
+public class HeadingPIDTuner extends OpMode {
     private double kP = 0;
     private double kD = 0;
     private double[] stepSizes = {0.001,0.01,0.1,1};
     private int stepIndex = 0;
     private boolean hasPressed = false;
 
-    headingPID pid = new headingPID();
+    HeadingPID pid = new HeadingPID();
     Constants constants = new Constants();
 
     @Override

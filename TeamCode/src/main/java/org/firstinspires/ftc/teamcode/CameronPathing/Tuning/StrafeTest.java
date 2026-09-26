@@ -9,17 +9,21 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
 @TeleOp
-public class forwardTest extends OpMode {
+public class StrafeTest extends OpMode {
     Follower follower = new Follower();
-    @Override
-    public void init() {
+
+
+    public void init(){
         follower.init(hardwareMap);
         telemetry.addLine("Init complete");
     }
 
     @Override
     public void loop() {
-        follower.runPath(0,24,0);
+        follower.runPath(24,0,0);
+
+
+
         telemetry.addData("Heading", follower.getHeading());
         telemetry.addData("Heading Error", follower.getHeadingError());
         telemetry.addData("Is busy", follower.isBusy());
@@ -32,6 +36,5 @@ public class forwardTest extends OpMode {
         telemetry.addData("bLeftDistance", follower.getMotorDistance(Follower.whichMotor.BL));
         telemetry.addData("bRightDistance", follower.getMotorDistance(Follower.whichMotor.BR));
         telemetry.update();
-
     }
 }

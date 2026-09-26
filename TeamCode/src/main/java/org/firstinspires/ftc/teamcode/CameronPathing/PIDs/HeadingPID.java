@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
 
 
-public class headingPID {
+public class HeadingPID {
 
     Constants constants = new Constants();
     ElapsedTime timer = new ElapsedTime();

@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
-
-
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_RIGHT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_LEFT;
@@ -10,11 +8,11 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.strafePID;
+import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.ForwardPID;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
 
 @TeleOp
-public class strafePIDTuner extends OpMode {
+public class ForwardPIDTuner extends OpMode {
     Constants constants = new Constants();
     private double kP = 0;
     private double kD = 0;
@@ -22,7 +20,7 @@ public class strafePIDTuner extends OpMode {
     private int stepIndex = 0;
     private boolean hasPressed = false;
 
-    strafePID pid = new strafePID();
+    ForwardPID pid = new ForwardPID();
 
 
     @Override
@@ -65,8 +63,8 @@ public class strafePIDTuner extends OpMode {
         double pidValue = pid.runPID(kP,kD,0);
 
         double fLeftPower = pidValue;
-        double fRightPower = -pidValue;
-        double bLeftPower = -pidValue;
+        double fRightPower = pidValue;
+        double bLeftPower = pidValue;
         double bRightPower = pidValue;
 
 

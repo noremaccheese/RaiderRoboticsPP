@@ -4,26 +4,44 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.c
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceY;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
-@TeleOp
-public class strafeTest extends OpMode {
+public class DriveAndRotateTest extends OpMode {
+
     Follower follower = new Follower();
+    private boolean strafe = false;
+    private double pathDistanceX = 0;
+    private double pathDistanceY = 0;
+    private boolean hasAnswered = false;
 
-
-    public void init(){
+    @Override
+    public void init() {
         follower.init(hardwareMap);
-        telemetry.addLine("Init complete");
+    }
+
+    @Override
+    public void init_loop() {
+        if(!hasAnswered){
+            telemetry.addLine("If strafe, push a. Otherwise, press b");
+            if (gamepad1.a){
+                pathDistanceX = 24;
+                hasAnswered = true;
+            }
+            else if (gamepad1.b){
+                pathDistanceY = 24;
+                hasAnswered = true;
+            }
+
+            if(hasAnswered){
+                telemetry.addLine("Init complete");
+            }
+        }
     }
 
     @Override
     public void loop() {
-        follower.runPath(24,0,0);
-
-
-
+        follower.runPath(pathDistanceX,pathDistanceY,90);
         telemetry.addData("Heading", follower.getHeading());
         telemetry.addData("Heading Error", follower.getHeadingError());
         telemetry.addData("Is busy", follower.isBusy());

@@ -18,9 +18,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.forwardPID;
-import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.headingPID;
-import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.strafePID;
+import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.ForwardPID;
+import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
+import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.StrafePID;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions;
 
@@ -33,9 +33,9 @@ public class Follower extends HelperFunctions {
     private double targetDistanceX = 0;
 
 
-    headingPID headingPID = new headingPID();
-    forwardPID forwardPID = new forwardPID();
-    strafePID strafePID = new strafePID();
+    HeadingPID headingPID = new HeadingPID();
+    ForwardPID forwardPID = new ForwardPID();
+    StrafePID strafePID = new StrafePID();
 
 
 

@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 @TeleOp
-public class holdTest extends OpMode {
+public class HoldTest extends OpMode {
     Follower follower = new Follower();
 
 
