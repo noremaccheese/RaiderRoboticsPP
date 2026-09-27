@@ -63,7 +63,9 @@ public class Follower extends HelperFunctions {
 
 
 
-    public void runPath(double distanceX, double distanceY, double targetHeading){
+    public void runPath(double x, double y, double targetHeading){
+        double distanceX = convertCoordinate(x, y)[0];
+        double distanceY = convertCoordinate(x,y)[1];
 
 
         targetDistanceY = distanceY-curDistanceY();
@@ -72,9 +74,9 @@ public class Follower extends HelperFunctions {
 
 
 
-        double headingCorrection = headingPID.runPID(HEADING_KP,HEADING_KD,targetHeading);
-        double forwardPIDValue = forwardPID.runPID(FORWARD_KP,FORWARD_KD,targetDistanceY);
-        double strafePIDValue = strafePID.runPID(STRAFE_KP,STRAFE_KD,targetDistanceX);
+            double headingCorrection = headingPID.runPID(HEADING_KP,HEADING_KD,targetHeading);
+            double forwardPIDValue = forwardPID.runPID(FORWARD_KP,FORWARD_KD,targetDistanceY);
+            double strafePIDValue = strafePID.runPID(STRAFE_KP,STRAFE_KD,targetDistanceX);
 
 
 

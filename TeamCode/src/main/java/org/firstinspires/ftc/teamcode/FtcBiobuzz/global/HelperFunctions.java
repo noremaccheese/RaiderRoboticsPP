@@ -6,8 +6,9 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.CIRCUMF
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.CPR;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.imu;
 
-
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 
 public class HelperFunctions {
@@ -59,23 +60,16 @@ public class HelperFunctions {
         return (getMotorDistance(F_LEFT.getCurrentPosition()) - getMotorDistance(F_RIGHT.getCurrentPosition()) - getMotorDistance(B_LEFT.getCurrentPosition()) + getMotorDistance(B_RIGHT.getCurrentPosition()))/4;
     }
 
-    public static double getMotorVelocity(whichMotor whichMotor){
-        double motorVelocity = 0;
-        if (whichMotor == HelperFunctions.whichMotor.FL) {
-            motorVelocity = F_LEFT.getVelocity();
-        }
+    public static double[] convertCoordinate(double x, double y) {
+        double deltaX = x - curDistanceX();
+        double deltaY = y - curDistanceY();
+        double theta = -imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-        if (whichMotor == HelperFunctions.whichMotor.FR) {
-            motorVelocity = F_RIGHT.getVelocity();
-        }
 
-        if (whichMotor == HelperFunctions.whichMotor.BL) {
-            motorVelocity = B_LEFT.getVelocity();
-        }
-        if (whichMotor == HelperFunctions.whichMotor.BR) {
-            motorVelocity = B_RIGHT.getVelocity();
-        }
-        return motorVelocity;
+        double robotX = deltaX * Math.cos(theta) + deltaY * Math.sin(theta);
+        double robotY = -deltaX * Math.sin(theta) + deltaY * Math.cos(theta);
 
+        return new double[]{robotX, robotY};
     }
+
 }
