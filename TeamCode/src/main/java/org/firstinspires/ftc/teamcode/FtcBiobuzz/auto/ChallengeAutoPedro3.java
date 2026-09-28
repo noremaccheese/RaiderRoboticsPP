@@ -13,7 +13,7 @@ import static com.pedropathing.api.Paths.*;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 @Autonomous
-public class challengeAutoPedro3 extends OpMode {
+public class ChallengeAutoPedro3 extends OpMode {
     ElapsedTime timer = new ElapsedTime();
     private double lastTime;
     private double targetTime;

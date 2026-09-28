@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
 @TeleOp
-public class challengeDriveCodePractice extends OpMode {
+public class ChallengeDriveCodePractice extends OpMode {
     private DcMotor intake; //shorthand to just intake
     private DcMotor fLeft;
     private DcMotor fRight;

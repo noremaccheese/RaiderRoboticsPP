@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
 @Autonomous
-public class challengeAutoCameronPathing extends OpMode {
+public class ChallengeAutoCameronPathing extends OpMode {
     Follower follower = new Follower();
 
     ElapsedTime timer = new ElapsedTime();

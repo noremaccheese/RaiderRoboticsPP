@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @TeleOp
-public class encoderTest extends OpMode {
+public class EncoderTest extends OpMode {
 
 
     private GoBildaPinpointDriver pinpoint;
