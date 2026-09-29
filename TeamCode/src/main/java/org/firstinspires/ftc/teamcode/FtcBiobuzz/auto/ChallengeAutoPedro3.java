@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.auto;
 
+import com.pedropathing.api.Paths;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.math.Pose;
@@ -30,10 +31,11 @@ public class ChallengeAutoPedro3 extends OpMode {
 
 
     //make Poses
+    /*
     private final Pose startPose = p.of(9,8.75,0);
     private final Pose pickupPose1 = p.of(135,8.75,0);
     private final Pose alignPose1 = p.of(118,24,0);
-    private final Pose alignPose2 = p.of(8.75,24,90); //wrong pose
+    private final Pose alignPose2 = p.of(8.75,24,90);
     private final Pose pickupPose2 = p.of(8.75,63,90);
     private final Pose alignPose3 = p.of(135.25,36,90);
     private final Pose pickupPose3 = p.of(135.25,63,90);
@@ -59,6 +61,43 @@ public class ChallengeAutoPedro3 extends OpMode {
     }
     private Path pickup3(){
         return line(alignPose3,pickupPose3).tangent();
+    }
+
+
+     */
+
+    private final PoseFactory poseFactory = PoseFactory.degrees();
+
+    private final Pose start = poseFactory.of(9, 8.75, 0);
+    private final Pose pickup1 = poseFactory.of(135, 8.75, 0);
+    private final Pose align1 = poseFactory.of(118, 24, 0);
+    private final Pose align2 = poseFactory.of(8.75, 24, 90);
+    private final Pose pickup2 = poseFactory.of(8.75, 64, 90);
+    private final Pose align3 = poseFactory.of(135.25, 36, 90);
+    private final Pose pickup3 = poseFactory.of(135.25, 63, 90);
+
+    public Path pickup1() {
+        return Paths.line(start, pickup1).tangent();
+    }
+
+    public Path align1() {
+        return Paths.line(pickup1, align1).constant(align1);
+    }
+
+    public Path align2() {
+        return Paths.line(align1, align2).linear(align1, align2);
+    }
+
+    public Path pickup2() {
+        return Paths.line(align2, pickup2).tangent();
+    }
+
+    public Path align3() {
+        return Paths.line(pickup2, align3).constant(align3);
+    }
+
+    public Path pickup3() {
+        return Paths.line(align3, pickup3).tangent();
     }
 
 
@@ -199,7 +238,7 @@ public class ChallengeAutoPedro3 extends OpMode {
     @Override
     public void init() {
         follower = Constants.create(hardwareMap);
-        follower.setPose(startPose);
+        follower.setPose(start);
         intake = hardwareMap.get(DcMotor.class, "intakeMotor1");
 
     }
