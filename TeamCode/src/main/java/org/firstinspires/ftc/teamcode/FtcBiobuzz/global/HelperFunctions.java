@@ -45,9 +45,7 @@ public class HelperFunctions {
 
     public static double getMotorDistance(double position){
         double revolutions = position/CPR;
-        double distance = CIRCUMFERENCE * revolutions;
-
-        return distance;
+        return CIRCUMFERENCE * revolutions;
 
     }
 
