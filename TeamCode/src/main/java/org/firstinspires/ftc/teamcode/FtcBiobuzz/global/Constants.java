@@ -17,10 +17,10 @@ public class Constants {
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
     public  static IMU imu;
 
-    public static final double STRAFE_KP = 0;
-    public static final double STRAFE_KD = 0;
-    public static final double FORWARD_KP = 0;
-    public static final double FORWARD_KD = 0;
+    public static final double STRAFE_KP = 1.5;
+    public static final double STRAFE_KD = 0.0005;
+    public static final double FORWARD_KP = 0.5;
+    public static final double FORWARD_KD = 0.0005;
     public static final double HEADING_KP = 0.015;
     public static final double HEADING_KD = 0.001;
 
@@ -52,7 +52,7 @@ public class Constants {
     }
 
     public void initIMU(HardwareMap h){
-        imu = h.get(IMU.class, "imu");
+        imu = h.get(IMU.class, "IMU");
         IMU.Parameters parameters = new IMU.Parameters(
                 new RevHubOrientationOnRobot(
                         RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,

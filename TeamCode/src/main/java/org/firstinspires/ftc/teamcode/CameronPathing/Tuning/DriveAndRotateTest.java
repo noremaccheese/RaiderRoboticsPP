@@ -18,6 +18,7 @@ public class DriveAndRotateTest extends OpMode {
     @Override
     public void init() {
         follower.init(hardwareMap);
+        telemetry.addLine("Init complete");
     }
 
     @Override
