@@ -47,24 +47,14 @@ public class Follower extends HelperFunctions {
 
     public void init(HardwareMap h){
         constants.initMotors(h);
+        constants.initIMU(h);
         headingPID.init(h);
         forwardPID.init(h);
         strafePID.init(h);
     }
 
 
-    public void resetEncoders(){
-        F_LEFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        F_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        B_LEFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        B_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-
-        F_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        F_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        B_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        B_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    }
 
 
 
@@ -78,8 +68,8 @@ public class Follower extends HelperFunctions {
 
 
         double headingCorrection = headingPID.runPID(HEADING_KP,HEADING_KD,targetHeading);
-        double forwardPIDValue = forwardPID.runPID(FORWARD_KP,FORWARD_KD,targetDistanceY);
-        double strafePIDValue = strafePID.runPID(STRAFE_KP,STRAFE_KD,targetDistanceX);
+        double forwardPIDValue = forwardPID.runPID(FORWARD_KP,FORWARD_KD,distanceY);
+        double strafePIDValue = strafePID.runPID(STRAFE_KP,STRAFE_KD,distanceX);
 
 
 

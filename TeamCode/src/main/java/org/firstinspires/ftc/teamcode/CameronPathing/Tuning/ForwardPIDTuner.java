@@ -4,12 +4,16 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_RIGHT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceY;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.ForwardPID;
+import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions;
 
 @TeleOp
 public class ForwardPIDTuner extends OpMode {
@@ -19,13 +23,17 @@ public class ForwardPIDTuner extends OpMode {
     private double[] stepSizes = {0.001,0.01,0.1,1};
     private int stepIndex = 0;
     private boolean hasPressed = false;
+    public double targetDistance = 24;
+    HelperFunctions helperFunctions = new HelperFunctions();
 
     ForwardPID pid = new ForwardPID();
+    HeadingPID headingPID = new HeadingPID();
 
 
     @Override
     public void init() {
         constants.initMotors(hardwareMap);
+        constants.initIMU(hardwareMap);
         pid.init(hardwareMap);
         telemetry.addLine("Init complete");
     }
@@ -60,12 +68,22 @@ public class ForwardPIDTuner extends OpMode {
         }
 
 
-        double pidValue = pid.runPID(kP,kD,0);
 
-        double fLeftPower = pidValue;
-        double fRightPower = pidValue;
-        double bLeftPower = pidValue;
-        double bRightPower = pidValue;
+        double pidValue = 0;
+        double headingPIDValue = headingPID.runPID(0.015,0.001,0);
+        if(gamepad1.a){
+            pidValue = pid.runPID(kP,kD,targetDistance);
+        }
+        else if(gamepad1.b){
+            helperFunctions.resetEncoders();
+        }
+
+
+
+        double fLeftPower = pidValue - headingPIDValue;
+        double fRightPower = pidValue + headingPIDValue;
+        double bLeftPower = pidValue - headingPIDValue;
+        double bRightPower = pidValue + headingPIDValue;
 
 
 
@@ -80,6 +98,8 @@ public class ForwardPIDTuner extends OpMode {
         telemetry.addData("kP", kP);
         telemetry.addData("kD", kD);
         telemetry.addData("Step size", stepSizes[stepIndex]);
+        telemetry.addData("Target Distance", targetDistance);
+        telemetry.addData("Distance travelled", curDistanceY());
         telemetry.update();
 
 

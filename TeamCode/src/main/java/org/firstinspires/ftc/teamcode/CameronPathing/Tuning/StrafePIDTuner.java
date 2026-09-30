@@ -6,12 +6,17 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_RIGHT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceX;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceY;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
+import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.StrafePID;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions;
 
 @TeleOp
 public class StrafePIDTuner extends OpMode {
@@ -21,13 +26,17 @@ public class StrafePIDTuner extends OpMode {
     private double[] stepSizes = {0.001,0.01,0.1,1};
     private int stepIndex = 0;
     private boolean hasPressed = false;
+    private double targetDistance = 24;
+    HelperFunctions helperFunctions = new HelperFunctions();
 
     StrafePID pid = new StrafePID();
+    HeadingPID headingPID = new HeadingPID();
 
 
     @Override
     public void init() {
         constants.initMotors(hardwareMap);
+        constants.initIMU(hardwareMap);
         pid.init(hardwareMap);
         telemetry.addLine("Init complete");
     }
@@ -62,14 +71,25 @@ public class StrafePIDTuner extends OpMode {
         }
 
 
-        double pidValue = pid.runPID(kP,kD,0);
 
-        double fLeftPower = pidValue;
-        double fRightPower = -pidValue;
-        double bLeftPower = -pidValue;
-        double bRightPower = pidValue;
+        double pidValue = 0;
+        double headingPIDValue = headingPID.runPID(0.015,0.001,0);
+        if(gamepad1.a){
+            pidValue = pid.runPID(kP,kD,targetDistance);
+        }
+        else if(gamepad1.b){
+            helperFunctions.resetEncoders();
+        }
 
 
+
+
+
+
+        double fLeftPower = pidValue - headingPIDValue;
+        double fRightPower = -pidValue + headingPIDValue;
+        double bLeftPower = -pidValue - headingPIDValue;
+        double bRightPower = pidValue + headingPIDValue;
 
         F_LEFT.setPower(fLeftPower);
         F_RIGHT.setPower(fRightPower);
@@ -82,6 +102,8 @@ public class StrafePIDTuner extends OpMode {
         telemetry.addData("kP", kP);
         telemetry.addData("kD", kD);
         telemetry.addData("Step size", stepSizes[stepIndex]);
+        telemetry.addData("Distance left", targetDistance);
+        telemetry.addData("Distance travelled", curDistanceX());
         telemetry.update();
 
 

@@ -9,10 +9,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions;
 
 @Autonomous
 public class ChallengeAutoCameronPathing extends OpMode {
     Follower follower = new Follower();
+    HelperFunctions helperFunctions = new HelperFunctions();
 
     ElapsedTime timer = new ElapsedTime();
     private double lastTime;
@@ -70,7 +72,7 @@ public class ChallengeAutoCameronPathing extends OpMode {
                     robotState = RobotState.IDLE;
                     nextState = RobotState.ALIGN1;
                     lastTime = timer.seconds();
-                    follower.resetEncoders();
+                    helperFunctions.resetEncoders();
                     hasRan = false;
                     return;
                 }
@@ -82,7 +84,7 @@ public class ChallengeAutoCameronPathing extends OpMode {
                 //follower.runPath(-16,-17,0);
                 if(!follower.isBusy()&& hasRan){
                     robotState = RobotState.ROTATE1;
-                    follower.resetEncoders();
+                    helperFunctions.resetEncoders();
                     hasRan = false;
                     return;
                 }
@@ -95,7 +97,7 @@ public class ChallengeAutoCameronPathing extends OpMode {
                 //follower.runPath(0,0,90);
                 if(!follower.isBusy()&& hasRan){
                     robotState = RobotState.ALIGN2;
-                    follower.resetEncoders();
+                    helperFunctions.resetEncoders();
                     hasRan = false;
                     return;
                 }
@@ -108,7 +110,7 @@ public class ChallengeAutoCameronPathing extends OpMode {
                 //follower.runPath(-109.25,0,0);
                 if(!follower.isBusy()&& hasRan){
                     robotState = RobotState.PICKUP2;
-                    follower.resetEncoders();
+                    helperFunctions.resetEncoders();
                     intakePower=1;
                     hasRan = false;
                     return;
@@ -125,7 +127,7 @@ public class ChallengeAutoCameronPathing extends OpMode {
                     robotState = RobotState.IDLE;
                     nextState = RobotState.ALIGN3;
                     lastTime = timer.seconds();
-                    follower.resetEncoders();
+                    helperFunctions.resetEncoders();
                     hasRan = false;
                     return;
                 }
@@ -138,7 +140,7 @@ public class ChallengeAutoCameronPathing extends OpMode {
                 //follower.runPath(126.5,-27,0);
                 if(!follower.isBusy()&& hasRan){
                     robotState = RobotState.PICKUP3;
-                    follower.resetEncoders();
+                    helperFunctions.resetEncoders();
                     intakePower=1;
                     hasRan = false;
                     return;
@@ -154,7 +156,7 @@ public class ChallengeAutoCameronPathing extends OpMode {
                     robotState = RobotState.IDLE;
                     nextState = RobotState.OFF;
                     lastTime = timer.seconds();
-                    follower.resetEncoders();
+                    helperFunctions.resetEncoders();
                     hasRan = false;
                     return;
                 }
@@ -187,10 +189,10 @@ public class ChallengeAutoCameronPathing extends OpMode {
         telemetry.addData("Current distance y", curDistanceY());
         telemetry.addData("Target distance x", follower.getTargetDistanceX());
         telemetry.addData("Target distance y", follower.getTargetDistanceY());
-        telemetry.addData("fLeftDistance", follower.getMotorDistance(Follower.whichMotor.FL));
-        telemetry.addData("fRightDistance", follower.getMotorDistance(Follower.whichMotor.FR));
-        telemetry.addData("bLeftDistance", follower.getMotorDistance(Follower.whichMotor.BL));
-        telemetry.addData("bRightDistance", follower.getMotorDistance(Follower.whichMotor.BR));
+        telemetry.addData("fLeftDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.FL));
+        telemetry.addData("fRightDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.FR));
+        telemetry.addData("bLeftDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.BL));
+        telemetry.addData("bRightDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.BR));
         telemetry.update();
     }
 }

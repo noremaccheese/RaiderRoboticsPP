@@ -7,6 +7,8 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.CPR;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
 
 
@@ -50,5 +52,18 @@ public class HelperFunctions {
 
     public static double curDistanceX(){
         return (getMotorDistance(F_LEFT.getCurrentPosition()) - getMotorDistance(F_RIGHT.getCurrentPosition()) - getMotorDistance(B_LEFT.getCurrentPosition()) + getMotorDistance(B_RIGHT.getCurrentPosition()))/4;
+    }
+
+    public void resetEncoders(){
+        F_LEFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        F_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        B_LEFT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        B_RIGHT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        F_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        F_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        B_LEFT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        B_RIGHT.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }
