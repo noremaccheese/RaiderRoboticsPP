@@ -25,13 +25,14 @@ public class ChallengeAutoPedro3 extends OpMode {
 
 
     private Follower follower;
+    /*
     private final PoseFactory p = PoseFactory.degrees();
 
 
 
 
     //make Poses
-    /*
+
     private final Pose startPose = p.of(9,8.75,0);
     private final Pose pickupPose1 = p.of(135,8.75,0);
     private final Pose alignPose1 = p.of(118,24,0);
@@ -259,7 +260,7 @@ public class ChallengeAutoPedro3 extends OpMode {
 
         telemetry.addData("x",follower.pose().x());
         telemetry.addData("y", follower.pose().y());
-        telemetry.addData("heading",follower.pose().heading());
+        telemetry.addData("heading", Math.toDegrees(follower.pose().heading()));
         telemetry.addData("Robot state", robotState);
         telemetry.addData("Time", timer.seconds());
         telemetry.update();

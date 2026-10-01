@@ -76,7 +76,7 @@ public class Constants {
 
 /*
 these are from pedro pathing 2
-idk why im keeping these here we probaly could delete
+idk why im keeping these here we probably could delete
 
 
 public static FollowerConstants followerConstants = new FollowerConstants()

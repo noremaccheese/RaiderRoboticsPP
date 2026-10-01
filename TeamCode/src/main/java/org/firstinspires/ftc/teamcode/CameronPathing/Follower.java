@@ -71,12 +71,19 @@ public class Follower extends HelperFunctions {
         double forwardPIDValue = forwardPID.runPID(FORWARD_KP,FORWARD_KD,distanceY);
         double strafePIDValue = strafePID.runPID(STRAFE_KP,STRAFE_KD,distanceX);
 
+        double fLeftPower = forwardPIDValue + strafePIDValue - headingCorrection;
+        double fRightPower = forwardPIDValue - strafePIDValue +headingCorrection;
+        double bLeftPower = forwardPIDValue - strafePIDValue -headingCorrection;
+        double bRightPower = forwardPIDValue  + strafePIDValue +headingCorrection;
+
+        double maxMotorPower = Math.max(Math.max(Math.abs(bLeftPower),Math.abs(bRightPower)),Math.max(Math.abs(fLeftPower),Math.abs(fRightPower)));
+        if(maxMotorPower <1){maxMotorPower = 1;}
 
 
-        F_LEFT.setPower(Range.clip(forwardPIDValue + strafePIDValue - headingCorrection, -MAX_POWER,MAX_POWER));
-        F_RIGHT.setPower(Range.clip(forwardPIDValue - strafePIDValue +headingCorrection, -MAX_POWER,MAX_POWER));
-        B_LEFT.setPower(Range.clip(forwardPIDValue - strafePIDValue -headingCorrection, -MAX_POWER,MAX_POWER));
-        B_RIGHT.setPower(Range.clip(forwardPIDValue  + strafePIDValue +headingCorrection, -MAX_POWER,MAX_POWER));
+        F_LEFT.setPower(fLeftPower /maxMotorPower);
+        F_RIGHT.setPower(fRightPower/maxMotorPower);
+        B_LEFT.setPower(bLeftPower/maxMotorPower);
+        B_RIGHT.setPower(bRightPower/maxMotorPower);
 
 
 

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions;
 
 @TeleOp
 public class ForwardTest extends OpMode {
@@ -27,10 +28,10 @@ public class ForwardTest extends OpMode {
         telemetry.addData("Current distance y", curDistanceY());
         telemetry.addData("Target distance x", follower.getTargetDistanceX());
         telemetry.addData("Target distance y", follower.getTargetDistanceY());
-        telemetry.addData("fLeftDistance", follower.getMotorDistance(Follower.whichMotor.FL));
-        telemetry.addData("fRightDistance", follower.getMotorDistance(Follower.whichMotor.FR));
-        telemetry.addData("bLeftDistance", follower.getMotorDistance(Follower.whichMotor.BL));
-        telemetry.addData("bRightDistance", follower.getMotorDistance(Follower.whichMotor.BR));
+        telemetry.addData("fLeftDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.FL));
+        telemetry.addData("fRightDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.FR));
+        telemetry.addData("bLeftDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.BL));
+        telemetry.addData("bRightDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.BR));
         telemetry.update();
 
     }
