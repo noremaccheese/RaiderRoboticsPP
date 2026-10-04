@@ -82,7 +82,7 @@ public class HelperFunctions {
     }
 
     public static double[] convertToBotCentric(double x, double y) {
-        double theta = -imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        double theta = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
 
         double robotX = x * Math.cos(theta) + y * Math.sin(theta);
