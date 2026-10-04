@@ -8,8 +8,6 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LE
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KD;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KP;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceX;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -32,7 +30,7 @@ public class StrafePIDTuner extends OpMode {
     public double targetPower = 0.5;
     HelperFunctions helperFunctions = new HelperFunctions();
 
-    StrafePID pid = new StrafePID(STRAFE_KP,STRAFE_KD);
+    StrafePID pid = new StrafePID(0,0);
     HeadingPID headingPID = new HeadingPID(HEADING_KP,HEADING_KD);
 
     private enum tunerType{
@@ -102,6 +100,9 @@ public class StrafePIDTuner extends OpMode {
         if(!gamepad1.right_bumper && !gamepad1.left_bumper){
             hasPressed= false;
         }
+
+        pid.setkP(kP);
+        pid.setkD(kD);
 
 
 

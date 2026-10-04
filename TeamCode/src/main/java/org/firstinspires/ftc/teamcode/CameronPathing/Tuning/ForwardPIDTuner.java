@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_FORWARD_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_FORWARD_KP;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KD;
@@ -30,7 +28,7 @@ public class ForwardPIDTuner extends OpMode {
     public double targetPower = 0.5;
     HelperFunctions helperFunctions = new HelperFunctions();
 
-    ForwardPID pid = new ForwardPID(DRIVE_FORWARD_KP,DRIVE_FORWARD_KD);
+    ForwardPID pid = new ForwardPID(0,0);
     HeadingPID headingPID = new HeadingPID(HEADING_KP,HEADING_KD);
     private enum tunerType{
         AUTO,
@@ -101,6 +99,8 @@ public class ForwardPIDTuner extends OpMode {
         }
 
 
+        pid.setkP(kP);
+        pid.setkD(kD);
 
         double pidValue = 0;
         double headingPIDValue = headingPID.runPID(0);

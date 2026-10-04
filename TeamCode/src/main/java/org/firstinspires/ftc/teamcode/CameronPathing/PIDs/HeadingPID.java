@@ -26,6 +26,13 @@ public class HeadingPID {
         this.kP = kP;
         this.kD = kD;
     }
+    public void setkP(double kP){
+        this.kP = kP;
+    }
+
+    public void setkD(double kD){
+        this.kD = kD;
+    }
 
 
     public void init(HardwareMap h){

@@ -4,8 +4,6 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LE
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KP;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -24,7 +22,7 @@ public class HeadingPIDTuner extends OpMode {
     private int stepIndex = 0;
     private boolean hasPressed = false;
 
-    HeadingPID pid = new HeadingPID(HEADING_KP,HEADING_KD);
+    HeadingPID pid = new HeadingPID(0,0);
     BotConstants constants = new BotConstants();
 
     @Override
@@ -69,6 +67,9 @@ public class HeadingPIDTuner extends OpMode {
         if(!gamepad1.right_bumper && !gamepad1.left_bumper){
             hasPressed= false;
         }
+
+        pid.setkP(kP);
+        pid.setkD(kD);
 
         double pidValue = pid.runPID(0);
 
