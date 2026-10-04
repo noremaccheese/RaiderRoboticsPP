@@ -37,6 +37,7 @@ public class LineTest extends OpMode {
         }
 
         if (!follower.isBusy()){
+            follower.resetEncoders();
             forward = !forward;
         }
 

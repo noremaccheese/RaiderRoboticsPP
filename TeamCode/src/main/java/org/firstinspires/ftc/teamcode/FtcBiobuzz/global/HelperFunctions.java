@@ -97,4 +97,13 @@ public class HelperFunctions {
     public static double convertToCPR(double velocity, double CPR){
         return (velocity*CPR)/60;
     }
+
+    public static double getVelocity(boolean forward, double CPR){
+        return forward ? convertToCPR((F_LEFT.getVelocity() + F_RIGHT.getVelocity() + B_LEFT.getVelocity() + B_RIGHT.getVelocity())/4, CPR) : convertToCPR((F_LEFT.getVelocity() - F_RIGHT.getVelocity() - B_LEFT.getVelocity() + B_RIGHT.getVelocity())/4, CPR);
+    }
+
+    public static double convertRPMToPower(double velocity, double maxRPM){
+        return velocity/maxRPM;
+    }
+
 }

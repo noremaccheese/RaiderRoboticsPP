@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 public class BotConstants {
-    public static DcMotor F_LEFT;
-    public static DcMotor F_RIGHT;
-    public static DcMotor B_LEFT;
-    public static DcMotor B_RIGHT;
+    public static DcMotorEx F_LEFT;
+    public static DcMotorEx F_RIGHT;
+    public static DcMotorEx B_LEFT;
+    public static DcMotorEx B_RIGHT;
     public static DcMotorEx FLYWHEEL_1;
     public static DcMotorEx FLYWHEEL_2;
     public static DcMotor INTAKE;
@@ -41,6 +41,7 @@ public class BotConstants {
     public static final double FLYWHEEL_KP = 0;
     public static final double FLYWHEEL_CPR = 28;
     public static final double FLYWHEEL_RPM = 6000;
+    public static final double DRIVE_RPM = 435;
 
     public void initMotors(HardwareMap h){
         F_LEFT = h.get(DcMotorEx .class, "fLeft");

@@ -1,17 +1,18 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 
 @TeleOp
 public class HeadingPIDTuner extends OpMode {
@@ -22,14 +23,14 @@ public class HeadingPIDTuner extends OpMode {
     private boolean hasPressed = false;
 
     HeadingPID pid = new HeadingPID();
-    Constants constants = new Constants();
+    BotConstants constants = new BotConstants();
 
     @Override
     public void init() {
-        F_LEFT = hardwareMap.get(DcMotor.class, "fLeft");
-        F_RIGHT = hardwareMap.get(DcMotor.class, "fRight");
-        B_LEFT = hardwareMap.get(DcMotor.class, "bLeft");
-        B_RIGHT = hardwareMap.get(DcMotor.class, "bRight");
+        F_LEFT = hardwareMap.get(DcMotorEx.class, "fLeft");
+        F_RIGHT = hardwareMap.get(DcMotorEx.class, "fRight");
+        B_LEFT = hardwareMap.get(DcMotorEx.class, "bLeft");
+        B_RIGHT = hardwareMap.get(DcMotorEx.class, "bRight");
 
         F_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
         B_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
