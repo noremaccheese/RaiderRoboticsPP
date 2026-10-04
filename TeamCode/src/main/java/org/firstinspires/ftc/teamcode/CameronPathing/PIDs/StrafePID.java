@@ -2,17 +2,21 @@ package org.firstinspires.ftc.teamcode.CameronPathing.PIDs;
 
 
 
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.CPR;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_RPM;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.convertRPMToPower;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceX;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.getVelocity;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 
 public class StrafePID {
 
-    Constants constants = new Constants();
+    BotConstants constants = new BotConstants();
     ElapsedTime timer = new ElapsedTime();
 
     double error = 0;
@@ -27,11 +31,12 @@ public class StrafePID {
     }
 
 
-    public double runPID(double kP, double kD, double target){
+    public double runPID(double kP, double kD, double target, boolean drive){
         double curDistance = curDistanceX();
+        double curPower = convertRPMToPower(getVelocity(false,CPR), DRIVE_RPM);
 
         lastError = error;
-        error = target - curDistance;
+        error = drive ? target - curPower : target - curDistance;
 
         double deltaError = error-lastError;
         double proportional = kP * error;
@@ -45,6 +50,9 @@ public class StrafePID {
 
     public double getError(){
         return error;
+    }
+    public double getCurPower(){
+        return convertRPMToPower(getVelocity(false,CPR), DRIVE_RPM);
     }
 
 

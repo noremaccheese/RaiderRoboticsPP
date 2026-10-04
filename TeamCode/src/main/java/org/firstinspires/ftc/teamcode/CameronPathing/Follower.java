@@ -1,31 +1,32 @@
 package org.firstinspires.ftc.teamcode.CameronPathing;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.END_PATH_TOLERANCE;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.FORWARD_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.FORWARD_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.F_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.HEADING_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.HEADING_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.HEADING_TOLERANCE;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.MAX_POWER;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.STRAFE_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants.STRAFE_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_FORWARD_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_FORWARD_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_STRAFE_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_STRAFE_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.END_PATH_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FORWARD_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FORWARD_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KP;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.ForwardPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.StrafePID;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.Constants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions;
 
 public class Follower extends HelperFunctions {
-    Constants constants = new Constants();
+    BotConstants constants = new BotConstants();
 
     public enum whichMotor{
         FL,
@@ -68,13 +69,28 @@ public class Follower extends HelperFunctions {
 
 
         double headingCorrection = headingPID.runPID(HEADING_KP,HEADING_KD,targetHeading);
-        double forwardPIDValue = forwardPID.runPID(FORWARD_KP,FORWARD_KD,distanceY);
-        double strafePIDValue = strafePID.runPID(STRAFE_KP,STRAFE_KD,distanceX);
+        double forwardPIDValue = forwardPID.runPID(FORWARD_KP,FORWARD_KD,distanceY, false);
+        double strafePIDValue = strafePID.runPID(STRAFE_KP,STRAFE_KD,distanceX, false);
 
         double fLeftPower = forwardPIDValue + strafePIDValue - headingCorrection;
         double fRightPower = forwardPIDValue - strafePIDValue +headingCorrection;
         double bLeftPower = forwardPIDValue - strafePIDValue -headingCorrection;
         double bRightPower = forwardPIDValue  + strafePIDValue +headingCorrection;
+
+        if(Math.abs(targetDistanceX) >= 6 && Math.abs(targetDistanceX) > END_PATH_TOLERANCE){
+            fLeftPower += 0.1 * Math.signum(targetDistanceX);
+            fRightPower -= 0.1 * Math.signum(targetDistanceX);
+            bLeftPower -= 0.1 * Math.signum(targetDistanceX);
+            bRightPower += 0.1 * Math.signum(targetDistanceX);
+        }
+
+        if(Math.abs(targetDistanceY) >= 6 && Math.abs(targetDistanceY) > END_PATH_TOLERANCE){
+            fLeftPower += 0.1 * Math.signum(targetDistanceY);
+            fRightPower += 0.1 * Math.signum(targetDistanceY);
+            bLeftPower += 0.1 * Math.signum(targetDistanceY);
+            bRightPower += 0.1 * Math.signum(targetDistanceY);
+        }
+
 
         double maxMotorPower = Math.max(Math.max(Math.abs(bLeftPower),Math.abs(bRightPower)),Math.max(Math.abs(fLeftPower),Math.abs(fRightPower)));
         if(maxMotorPower <1){maxMotorPower = 1;}
@@ -87,6 +103,31 @@ public class Follower extends HelperFunctions {
 
 
 
+    }
+
+    public void runManualDrive(double joystickX, double joystickY, double targetHeading, boolean botCentric){
+
+        double[] powers = botCentric ? convertToBotCentric(joystickX, joystickY) : new double[]{joystickX, joystickY};
+
+        double headingCorrection = headingPID.runPID(HEADING_KP,HEADING_KD,targetHeading);
+        double forwardPIDValue = forwardPID.runPID(DRIVE_FORWARD_KP,DRIVE_FORWARD_KD,powers[0], true);
+        double strafePIDValue = strafePID.runPID(DRIVE_STRAFE_KP,DRIVE_STRAFE_KD,powers[1], true);
+
+
+        double fLeftPower = forwardPIDValue + strafePIDValue - headingCorrection;
+        double fRightPower = forwardPIDValue - strafePIDValue +headingCorrection;
+        double bLeftPower = forwardPIDValue - strafePIDValue -headingCorrection;
+        double bRightPower = forwardPIDValue  + strafePIDValue +headingCorrection;
+
+
+        double maxMotorPower = Math.max(Math.max(Math.abs(bLeftPower),Math.abs(bRightPower)),Math.max(Math.abs(fLeftPower),Math.abs(fRightPower)));
+        if(maxMotorPower <1){maxMotorPower = 1;}
+
+
+        F_LEFT.setPower(fLeftPower /maxMotorPower);
+        F_RIGHT.setPower(fRightPower/maxMotorPower);
+        B_LEFT.setPower(bLeftPower/maxMotorPower);
+        B_RIGHT.setPower(bRightPower/maxMotorPower);
     }
 
 
