@@ -7,14 +7,13 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RI
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 
-@TeleOp
+//@TeleOp
 public class HeadingPIDTuner extends OpMode {
     private double kP = 0;
     private double kD = 0;
@@ -84,8 +83,6 @@ public class HeadingPIDTuner extends OpMode {
         F_RIGHT.setPower(fRightPower);
         B_LEFT.setPower(bLeftPower);
         B_RIGHT.setPower(bRightPower);
-
-
 
 
         telemetry.addData("kP", kP);

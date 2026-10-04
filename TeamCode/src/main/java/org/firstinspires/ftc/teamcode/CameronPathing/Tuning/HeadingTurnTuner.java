@@ -29,7 +29,7 @@ public class HeadingTurnTuner extends OpMode {
         }
 
         if(gamepad1.right_bumper && !hasPressed){
-            stepIndex = stepIndex >= stepSizes.length ? stepSizes.length: stepIndex + 1;
+            stepIndex = stepIndex >= stepSizes.length -1 ? stepSizes.length -1: stepIndex + 1;
             hasPressed = true;
         }
         else if(gamepad1.left_bumper && !hasPressed){
@@ -37,7 +37,7 @@ public class HeadingTurnTuner extends OpMode {
             hasPressed = true;
         }
         boolean beingPressed = gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.right_bumper || gamepad1.left_bumper;
-        if(beingPressed){
+        if(!beingPressed){
             hasPressed = false;
         }
         double targetHeading = follower.getHeading() + gamepad1.right_stick_x * scalar;

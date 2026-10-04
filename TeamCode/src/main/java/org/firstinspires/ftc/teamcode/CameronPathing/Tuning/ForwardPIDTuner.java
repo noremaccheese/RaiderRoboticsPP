@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions;
 
-@TeleOp
+//@TeleOp
 public class ForwardPIDTuner extends OpMode {
     BotConstants constants = new BotConstants();
     private double kP = 0;
