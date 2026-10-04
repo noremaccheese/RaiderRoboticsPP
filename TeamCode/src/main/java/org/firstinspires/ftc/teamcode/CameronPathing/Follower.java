@@ -39,9 +39,9 @@ public class Follower extends HelperFunctions {
     private double targetDistanceX = 0;
 
 
-    HeadingPID headingPID = new HeadingPID();
-    ForwardPID forwardPID = new ForwardPID();
-    StrafePID strafePID = new StrafePID();
+    HeadingPID headingPID = new HeadingPID(HEADING_KP,HEADING_KD);
+    ForwardPID forwardPID = new ForwardPID(DRIVE_FORWARD_KP,DRIVE_FORWARD_KD);
+    StrafePID strafePID = new StrafePID(STRAFE_KP,STRAFE_KD);
 
 
 
@@ -68,9 +68,9 @@ public class Follower extends HelperFunctions {
 
 
 
-        double headingCorrection = headingPID.runPID(HEADING_KP,HEADING_KD,targetHeading);
-        double forwardPIDValue = forwardPID.runPID(FORWARD_KP,FORWARD_KD,distanceY, false);
-        double strafePIDValue = strafePID.runPID(STRAFE_KP,STRAFE_KD,distanceX, false);
+        double headingCorrection = headingPID.runPID(targetHeading);
+        double forwardPIDValue = forwardPID.runPID(distanceY, false);
+        double strafePIDValue = strafePID.runPID(distanceX, false);
 
         double fLeftPower = forwardPIDValue + strafePIDValue - headingCorrection;
         double fRightPower = forwardPIDValue - strafePIDValue +headingCorrection;
@@ -109,9 +109,9 @@ public class Follower extends HelperFunctions {
 
         double[] powers = botCentric ? convertToBotCentric(joystickX, joystickY) : new double[]{joystickX, joystickY};
 
-        double headingCorrection = headingPID.runPID(HEADING_KP,HEADING_KD,targetHeading);
-        double forwardPIDValue = forwardPID.runPID(DRIVE_FORWARD_KP,DRIVE_FORWARD_KD,powers[0], true);
-        double strafePIDValue = strafePID.runPID(DRIVE_STRAFE_KP,DRIVE_STRAFE_KD,powers[1], true);
+        double headingCorrection = headingPID.runPID(targetHeading);
+        double forwardPIDValue = forwardPID.runPID(powers[0], true);
+        double strafePIDValue = strafePID.runPID(powers[1], true);
 
 
         double fLeftPower = forwardPIDValue + strafePIDValue - headingCorrection;

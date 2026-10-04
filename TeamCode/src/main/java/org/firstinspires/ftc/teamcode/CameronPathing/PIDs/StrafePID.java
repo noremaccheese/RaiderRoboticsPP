@@ -21,8 +21,14 @@ public class StrafePID {
 
     double error = 0;
     double lastError = error;
+    double kP;
+    double kD;
 
 
+    public StrafePID(double kP, double kD){
+        this.kP = kP;
+        this.kD = kD;
+    }
 
 
 
@@ -31,7 +37,7 @@ public class StrafePID {
     }
 
 
-    public double runPID(double kP, double kD, double target, boolean drive){
+    public double runPID(double target, boolean drive){
         double curDistance = curDistanceX();
         double curPower = convertRPMToPower(getVelocity(false,CPR), DRIVE_RPM);
 

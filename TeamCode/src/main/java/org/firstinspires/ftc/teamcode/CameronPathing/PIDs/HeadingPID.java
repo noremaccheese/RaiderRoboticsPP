@@ -17,8 +17,15 @@ public class HeadingPID {
     double error = 0;
     double lastError = error;
 
+    double kP;
+    double kD;
 
 
+
+    public HeadingPID(double kP, double kD){
+        this.kP = kP;
+        this.kD = kD;
+    }
 
 
     public void init(HardwareMap h){
@@ -26,7 +33,7 @@ public class HeadingPID {
     }
 
 
-    public double runPID(double kP, double kD, double targetHeading){
+    public double runPID(double targetHeading){
         double curHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
         lastError = error;
         error = targetHeading - curHeading;

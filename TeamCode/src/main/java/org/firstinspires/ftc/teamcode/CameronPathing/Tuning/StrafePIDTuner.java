@@ -6,6 +6,10 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LE
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KP;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceX;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -28,8 +32,8 @@ public class StrafePIDTuner extends OpMode {
     public double targetPower = 0.5;
     HelperFunctions helperFunctions = new HelperFunctions();
 
-    StrafePID pid = new StrafePID();
-    HeadingPID headingPID = new HeadingPID();
+    StrafePID pid = new StrafePID(STRAFE_KP,STRAFE_KD);
+    HeadingPID headingPID = new HeadingPID(HEADING_KP,HEADING_KD);
 
     private enum tunerType{
         AUTO,
@@ -102,12 +106,12 @@ public class StrafePIDTuner extends OpMode {
 
 
         double pidValue = 0;
-        double headingPIDValue = headingPID.runPID(0.015,0.001,0);
+        double headingPIDValue = headingPID.runPID(0);
 
 
         if(type == tunerType.AUTO){
             if(gamepad1.a){
-                pidValue = pid.runPID(kP,kD,targetDistance, false);
+                pidValue = pid.runPID(targetDistance, false);
             }
             else if(gamepad1.b){
                 helperFunctions.resetEncoders();
@@ -115,7 +119,7 @@ public class StrafePIDTuner extends OpMode {
         }
 
         if(type == tunerType.DRIVE && gamepad1.a){
-            pidValue = pid.runPID(kP,kD,targetPower, true);
+            pidValue = pid.runPID(targetPower, true);
         }
 
 

@@ -15,12 +15,20 @@ import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 
 public class ForwardPID {
 
+    double kP;
+    double kD;
+
+
     BotConstants constants = new BotConstants();
     ElapsedTime timer = new ElapsedTime();
 
     double error = 0;
     double lastError = error;
 
+    public ForwardPID(double kP, double kD){
+        this.kP = kP;
+        this.kD = kD;
+    }
 
 
 
@@ -30,7 +38,7 @@ public class ForwardPID {
     }
 
 
-    public double runPID(double kP, double kD, double target, boolean drive){
+    public double runPID(double target, boolean drive){
     double curDistance = curDistanceY();
     double curPower = convertRPMToPower(getVelocity(true,CPR), DRIVE_RPM);
 

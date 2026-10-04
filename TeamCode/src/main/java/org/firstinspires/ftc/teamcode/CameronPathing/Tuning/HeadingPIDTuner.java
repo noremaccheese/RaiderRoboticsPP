@@ -4,6 +4,8 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LE
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KP;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -22,7 +24,7 @@ public class HeadingPIDTuner extends OpMode {
     private int stepIndex = 0;
     private boolean hasPressed = false;
 
-    HeadingPID pid = new HeadingPID();
+    HeadingPID pid = new HeadingPID(HEADING_KP,HEADING_KD);
     BotConstants constants = new BotConstants();
 
     @Override
@@ -68,11 +70,12 @@ public class HeadingPIDTuner extends OpMode {
             hasPressed= false;
         }
 
+        double pidValue = pid.runPID(0);
 
-        double fLeftPower = -pid.runPID(kP,kD,0);
-        double fRightPower = pid.runPID(kP,kD,0);
-        double bLeftPower = -pid.runPID(kP,kD,0);
-        double bRightPower = pid.runPID(kP,kD,0);
+        double fLeftPower = -pidValue;
+        double fRightPower = pidValue;
+        double bLeftPower = -pidValue;
+        double bRightPower = pidValue;
 
 
 

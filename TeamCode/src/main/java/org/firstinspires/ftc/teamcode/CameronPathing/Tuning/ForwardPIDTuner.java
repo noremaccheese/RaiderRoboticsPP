@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_FORWARD_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_FORWARD_KP;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KD;
@@ -28,8 +30,8 @@ public class ForwardPIDTuner extends OpMode {
     public double targetPower = 0.5;
     HelperFunctions helperFunctions = new HelperFunctions();
 
-    ForwardPID pid = new ForwardPID();
-    HeadingPID headingPID = new HeadingPID();
+    ForwardPID pid = new ForwardPID(DRIVE_FORWARD_KP,DRIVE_FORWARD_KD);
+    HeadingPID headingPID = new HeadingPID(HEADING_KP,HEADING_KD);
     private enum tunerType{
         AUTO,
         DRIVE,
@@ -101,11 +103,11 @@ public class ForwardPIDTuner extends OpMode {
 
 
         double pidValue = 0;
-        double headingPIDValue = headingPID.runPID(HEADING_KP,HEADING_KD,0);
+        double headingPIDValue = headingPID.runPID(0);
 
         if(type == tunerType.AUTO){
             if(gamepad1.a){
-                pidValue = pid.runPID(kP,kD,targetDistance, false);
+                pidValue = pid.runPID(targetDistance, false);
             }
             else if(gamepad1.b){
                 helperFunctions.resetEncoders();
@@ -113,7 +115,7 @@ public class ForwardPIDTuner extends OpMode {
         }
 
         if(type == tunerType.DRIVE && gamepad1.a){
-            pidValue = pid.runPID(kP,kD,targetPower, true);
+            pidValue = pid.runPID(targetPower, true);
         }
 
 
