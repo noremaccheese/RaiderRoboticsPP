@@ -26,7 +26,7 @@ public class FoundationTeleop extends OpMode {
     private Shooter shooter = new Shooter();
     double intakePower = 0;
     double transferPower = 0;
-    private double[] stepSizes = {0.001,0.01,0.1,1};
+    private double[] stepSizes = {5,10,50,100};
     private int stepIndex = 0;
 
     @Override
@@ -50,13 +50,13 @@ public class FoundationTeleop extends OpMode {
         ManualDrive.driveOrHold(follower, powers);
 
         if(gamepad1.right_trigger >= 0.5 && !hasPressed){
-            //shooter.setTargetVelocity(shooter.getTargetVelocity() + 50);
-            kV += stepSizes[stepIndex];
+            shooter.setTargetVelocity(shooter.getTargetVelocity() + 50);
+            //kV += stepSizes[stepIndex];
             hasPressed = true;
         }
         if(gamepad1.left_trigger >= 0.5 && !hasPressed){
-            //shooter.setTargetVelocity(shooter.getTargetVelocity() - 50);
-            kV -= stepSizes[stepIndex];
+            shooter.setTargetVelocity(shooter.getTargetVelocity() - 50);
+            //kV -= stepSizes[stepIndex];
             hasPressed = true;
         }
 

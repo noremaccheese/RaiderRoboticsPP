@@ -86,9 +86,7 @@ public class Shooter {
         }
 
     }
-    public void setkV(double kV){
-        this.kV = kV;
-    }
+
 
     public void update(Gamepad gamepad){
 

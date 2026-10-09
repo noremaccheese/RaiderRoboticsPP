@@ -21,7 +21,9 @@ public class BotConstants {
             "DRIVE_FORWARD",
             "AUTO_FORWARD",
             "DRIVE_STRAFE",
-            "AUTO_STRAFE"
+            "AUTO_STRAFE",
+            "FLYWHEEL_P+FF",
+            "FLYWHEEL_PIDF"
     ));
 
 
