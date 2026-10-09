@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.global;
 
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
@@ -10,22 +10,31 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEAD
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KP;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KD;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.tunerTypes;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceX;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceY;
 
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.ForwardPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.StrafePID;
 
+import java.util.Objects;
+
 @TeleOp
-public class PIDTuning extends OpMode {
+public class GlobalTuning extends OpMode {
 
     HeadingPID headingPID = new HeadingPID(HEADING_KP,HEADING_KD);
     ForwardPID forwardPID = new ForwardPID(DRIVE_FORWARD_KP,DRIVE_FORWARD_KD);
     StrafePID strafePID = new StrafePID(STRAFE_KP,STRAFE_KD);
+    BotConstants constants = new BotConstants();
+
+    int tunerSelected = 0;
+    String type = tunerTypes.get(tunerSelected);
 
     double kP = 0;
     double kD = 0;
@@ -41,16 +50,39 @@ public class PIDTuning extends OpMode {
     double targetPower = 0.5;
     double targetDistance = 24;
 
-    private enum tunerType{
-        HEADING_TUNER,
-        DRIVE_FORWARD,
-        AUTO_FORWARD,
-        DRIVE_STRAFE,
-        AUTO_STRAFE,
-        NULL
-    }
 
-    private tunerType type = tunerType.NULL;
+
+
+
+    public void choseTuner(){
+        telemetry.addLine("Selected tuner");
+
+        for(int i = 0; i < tunerTypes.size(); i++){
+            if(Objects.equals(tunerTypes.get(i), tunerTypes.get(tunerSelected))){
+                telemetry.addLine(">" + tunerTypes.get(i));
+            }
+            else{
+                telemetry.addLine(tunerTypes.get(i));
+            }
+
+        }
+
+
+        if(gamepad1.dpad_up && !hasPressed){
+            tunerSelected = Range.clip(tunerSelected + 1, 0, tunerTypes.size() -1);
+            hasPressed = true;
+
+        }
+        if(gamepad1.dpad_down && !hasPressed){
+            tunerSelected = Range.clip(tunerSelected - 1, 0, tunerTypes.size() -1);
+            hasPressed = true;
+        }
+
+        if(!gamepad1.dpad_down && !gamepad1.dpad_up && hasPressed){
+            hasPressed = false;
+        }
+
+    }
 
     @Override
     public void init() {
@@ -58,45 +90,15 @@ public class PIDTuning extends OpMode {
         forwardPID.init(hardwareMap);
         strafePID.init(hardwareMap);
 
+        constants.initMotors(hardwareMap);
+        constants.initIMU(hardwareMap);
+
         telemetry.addLine("Init complete");
     }
 
     @Override
     public void init_loop() {
-        while (type == tunerType.NULL){
-            telemetry.addLine("Select tuner type");
-            telemetry.addLine("dpad up for drive forward, dpad down for drive strafe, dpad right for auto forward, dpad left for auto strafe, a for heading");
-
-            if(gamepad1.a){
-                type = tunerType.HEADING_TUNER;
-            }
-
-            if(gamepad1.dpad_up){
-                type = tunerType.DRIVE_FORWARD;
-            }
-
-            if(gamepad1.dpad_down){
-                type = tunerType.DRIVE_STRAFE;
-            }
-
-            if(gamepad1.dpad_right){
-                type = tunerType.AUTO_FORWARD;
-            }
-
-            if(gamepad1.dpad_left){
-                type = tunerType.AUTO_STRAFE;
-            }
-
-        }
-
-        if(gamepad1.x){
-            type = tunerType.NULL;
-        }
-
-        telemetry.addData("Tuner", type);
-        telemetry.addLine("Press x to change types");
-        telemetry.addLine("Init complete");
-
+        choseTuner();
     }
 
     @Override
@@ -135,7 +137,7 @@ public class PIDTuning extends OpMode {
         }
 
 
-        if(type != tunerType.HEADING_TUNER){
+        if(!Objects.equals(type, "HEADING_TUNER")){
             headingPID.setkP(HEADING_KP);
             headingPID.setkD(HEADING_KD);
             headingPIDValue = headingPID.runPID(0);
@@ -143,7 +145,7 @@ public class PIDTuning extends OpMode {
 
 
         switch (type){
-            case HEADING_TUNER:
+            case "HEADING_TUNER":
                 headingPID.setkP(kP);
                 headingPID.setkD(kD);
                 pidValue = headingPID.runPID(0);
@@ -155,7 +157,7 @@ public class PIDTuning extends OpMode {
                 bRightPower = pidValue;
                 break;
 
-            case DRIVE_STRAFE:
+            case "DRIVE_STRAFE":
                 strafePID.setkP(kP);
                 strafePID.setkD(kD);
                 pidValue = gamepad1.a ? strafePID.runPID(targetPower, true): 0;
@@ -171,7 +173,7 @@ public class PIDTuning extends OpMode {
                 telemetry.addData("Current power", strafePID.getCurPower());
                 break;
 
-            case DRIVE_FORWARD:
+            case "DRIVE_FORWARD":
                 forwardPID.setkP(kP);
                 forwardPID.setkD(kD);
                 pidValue = gamepad1.a ? forwardPID.runPID(targetPower, true): 0;
@@ -187,7 +189,7 @@ public class PIDTuning extends OpMode {
                 telemetry.addData("Current power", forwardPID.getCurPower());
                 break;
 
-            case AUTO_FORWARD:
+            case "AUTO_FORWARD":
                 forwardPID.setkP(kP);
                 forwardPID.setkD(kD);
 
@@ -206,7 +208,7 @@ public class PIDTuning extends OpMode {
                 break;
 
 
-            case AUTO_STRAFE:
+            case "AUTO_STRAFE":
                 strafePID.setkP(kP);
                 strafePID.setkD(kD);
 
@@ -224,7 +226,7 @@ public class PIDTuning extends OpMode {
                 telemetry.addData("Distance travelled", curDistanceX());
                 break;
 
-            case NULL:
+            case "NULL":
                 telemetry.addLine("YO WHAT THE HECK. YOU WERE SUPPOSED TO SELECT IN INIT");
 
         }
@@ -249,6 +251,7 @@ public class PIDTuning extends OpMode {
         telemetry.addData("kD", kD);
         telemetry.addData("Step size", stepSizes[stepIndex]);
         telemetry.addData("Heading", headingPID.getHeading());
+        telemetry.addLine(type);
         telemetry.update();
 
     }

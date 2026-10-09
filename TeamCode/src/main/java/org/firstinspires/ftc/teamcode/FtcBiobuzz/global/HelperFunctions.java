@@ -106,4 +106,8 @@ public class HelperFunctions {
         return velocity/maxRPM;
     }
 
+    public void eSTOP(){
+        throw new RuntimeException();
+    }
+
 }

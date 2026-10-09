@@ -40,7 +40,7 @@ public class Follower extends HelperFunctions {
 
 
     HeadingPID headingPID = new HeadingPID(HEADING_KP,HEADING_KD);
-    ForwardPID forwardPID = new ForwardPID(DRIVE_FORWARD_KP,DRIVE_FORWARD_KD);
+    ForwardPID forwardPID = new ForwardPID(FORWARD_KP,FORWARD_KD);
     StrafePID strafePID = new StrafePID(STRAFE_KP,STRAFE_KD);
 
 
