@@ -6,6 +6,7 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FLYW
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FLYWHEEL_CPR;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.MAX_FLYWHEEL_RPM;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.convertRPMToPower;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.convertToCPR;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.convertToRPM;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -53,7 +54,7 @@ public class FlywheelMechanism {
     }
 
     public void runFlywheelToVelocity(double targetVelocity){
-        targetVelocity = convertToRPM(targetVelocity,FLYWHEEL_CPR);
+        targetVelocity = convertToCPR(targetVelocity,FLYWHEEL_CPR);
         FLYWHEEL_1.setVelocity(targetVelocity);
         FLYWHEEL_2.setVelocity(targetVelocity);
     }
@@ -64,8 +65,8 @@ public class FlywheelMechanism {
         FLYWHEEL_2.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, PIDF);
 
 
-        FLYWHEEL_1.setVelocity(convertToRPM(targetVelocity,FLYWHEEL_CPR));
-        FLYWHEEL_2.setVelocity(convertToRPM(targetVelocity, FLYWHEEL_CPR));
+        FLYWHEEL_1.setVelocity(convertToCPR(targetVelocity,FLYWHEEL_CPR));
+        FLYWHEEL_2.setVelocity(convertToCPR(targetVelocity, FLYWHEEL_CPR));
     }
 
 
