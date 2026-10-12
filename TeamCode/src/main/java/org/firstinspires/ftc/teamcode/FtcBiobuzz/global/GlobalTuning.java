@@ -49,7 +49,7 @@ public class GlobalTuning extends OpMode {
     double kS = 0;
     double pidValue = 0;
     double headingPIDValue = 0;
-    private double[] stepSizes = {0.001,0.01,0.1,1};
+    private double[] stepSizes = {0.01,0.1,1,10};
     private double[] powerStepSizes = {5,10,50,100};
     private int stepIndex = 0;
     private boolean hasPressed = false;
@@ -78,12 +78,12 @@ public class GlobalTuning extends OpMode {
         }
 
 
-        if(gamepad1.dpad_up && !hasPressed){
+        if(gamepad1.dpad_down && !hasPressed){
             tunerSelected = Range.clip(tunerSelected + 1, 0, tunerTypes.size() -1);
             hasPressed = true;
 
         }
-        if(gamepad1.dpad_down && !hasPressed){
+        if(gamepad1.dpad_up && !hasPressed){
             tunerSelected = Range.clip(tunerSelected - 1, 0, tunerTypes.size() -1);
             hasPressed = true;
         }
@@ -194,6 +194,7 @@ public class GlobalTuning extends OpMode {
     @Override
     public void loop() {
 
+        controls();
 
 
         switch (type){
@@ -303,17 +304,14 @@ public class GlobalTuning extends OpMode {
 
             case "FLYWHEEL_PIDF":
                 if(runFlywheel){
-                    flywheelMechanism.runFlywheelPIDF(kP,kS,targetVelocity);
+                    flywheelMechanism.runPedroFlywheel(kP,kS,targetVelocity);
                 }
                 else{
                     flywheelMechanism.runFlywheelPIDF(kP,kS,0);
                 }
 
-                telemetry.addData("Current velocity", convertToRPM((FLYWHEEL_1.getVelocity() + FLYWHEEL_2.getVelocity())/2,FLYWHEEL_CPR));
+                telemetry.addData("Current velocity", flywheelMechanism.getCurrentVelocity());
                 telemetry.addData("Target velocity", targetVelocity);
-
-
-
 
                 break;
 

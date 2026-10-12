@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 public class Shooter {
     FlywheelMechanism flywheel = new FlywheelMechanism();
     BotConstants constants = new BotConstants();
-    double targetVelocity = 1250;
+    double targetVelocity = 2000;
     double targetFlywheelVelocity = 0;
     double transferPower = 0.8;
     double intakePower = 0;
@@ -40,7 +40,7 @@ public class Shooter {
     }
 
     public double flywheelVelocity(){
-        return (FLYWHEEL_1.getVelocity() + FLYWHEEL_2.getVelocity())/2;
+        return (flywheel.getCurrentVelocity());
     }
 
     public void setState(shooterState state){
@@ -99,7 +99,7 @@ public class Shooter {
 
 
         runShooter();
-        flywheel.runFlywheelToVelocity(targetFlywheelVelocity);
+        flywheel.runPedroFlywheel(50,17.5,targetFlywheelVelocity);
         //flywheel.runFlywheelController(targetFlywheelVelocity,kV,0,0);
 
 

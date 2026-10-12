@@ -9,6 +9,7 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.c
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.convertToCPR;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.convertToRPM;
 
+import com.pedropathing.controllers.Controller;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
@@ -18,12 +19,14 @@ import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 
 public class FlywheelMechanism {
     BotConstants constants = new BotConstants();
+    VoltageCompensation voltageCompensation = new VoltageCompensation();
     double normalizedVelocity = 0;
 
 
 
     public void init(HardwareMap h){
         constants.initMotors(h);
+        voltageCompensation.init(h);
     }
 
     private double feedforward(double kV, double kS){
@@ -67,6 +70,17 @@ public class FlywheelMechanism {
 
         FLYWHEEL_1.setVelocity(convertToCPR(targetVelocity,FLYWHEEL_CPR));
         FLYWHEEL_2.setVelocity(convertToCPR(targetVelocity, FLYWHEEL_CPR));
+    }
+
+    public double getCurrentVelocity(){
+        return convertToRPM(FLYWHEEL_1.getVelocity(), FLYWHEEL_CPR);
+    }
+
+    public double runPedroFlywheel(double kP, double kV, double target){
+        Controller proportional = Controller.proportional(kP);
+        Controller ff = Controller.proportionalFeedforward(kV);
+        Controller finalController = Controller.sum(proportional, ff);
+        return finalController.calculate(target,target-getCurrentVelocity());
     }
 
 

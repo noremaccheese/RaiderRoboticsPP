@@ -29,6 +29,7 @@ public class FoundationTeleop extends OpMode {
     private double[] stepSizes = {5,10,50,100};
     private int stepIndex = 0;
 
+
     @Override
     public void init() {
         follower = Constants.create(hardwareMap);
@@ -107,7 +108,8 @@ public class FoundationTeleop extends OpMode {
         telemetry.addData("step size", stepSizes[stepIndex]);
         telemetry.addData("transfer power", transferPower);
         telemetry.addData("Servo power", servoPower);
-        telemetry.addData("Target velocity", shooter.getTargetFlywheelVelocity());
+        telemetry.addData("Target flywheel velocity", shooter.getTargetFlywheelVelocity());
+        telemetry.addData("Target velocty", shooter.getTargetVelocity());
         telemetry.addData("Flywheel rpm", shooter.flywheelVelocity());
         telemetry.addData("Robot X", robotPose.x());
         telemetry.addData("Robot Y", robotPose.y());
