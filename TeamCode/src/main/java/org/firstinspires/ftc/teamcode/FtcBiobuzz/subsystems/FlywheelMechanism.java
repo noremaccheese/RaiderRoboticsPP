@@ -76,11 +76,13 @@ public class FlywheelMechanism {
         return convertToRPM(FLYWHEEL_1.getVelocity(), FLYWHEEL_CPR);
     }
 
-    public double runPedroFlywheel(double kP, double kV, double target){
+    public void runPedroFlywheel(double kP, double kV, double target){ //kP 0.0015 kV 0.0002
         Controller proportional = Controller.proportional(kP);
         Controller ff = Controller.proportionalFeedforward(kV);
         Controller finalController = Controller.sum(proportional, ff);
-        return finalController.calculate(target,target-getCurrentVelocity());
+        runFlywheelToPower(finalController.calculate(target,target- getCurrentVelocity()));
+
+
     }
 
 

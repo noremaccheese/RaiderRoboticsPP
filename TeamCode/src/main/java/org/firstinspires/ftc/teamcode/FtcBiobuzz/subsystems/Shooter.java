@@ -99,7 +99,7 @@ public class Shooter {
 
 
         runShooter();
-        flywheel.runPedroFlywheel(50,17.5,targetFlywheelVelocity);
+        flywheel.runPedroFlywheel(0.0015,0.0002,targetFlywheelVelocity);
         //flywheel.runFlywheelController(targetFlywheelVelocity,kV,0,0);
 
 

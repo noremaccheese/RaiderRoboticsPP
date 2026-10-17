@@ -49,8 +49,8 @@ public class GlobalTuning extends OpMode {
     double kS = 0;
     double pidValue = 0;
     double headingPIDValue = 0;
-    private double[] stepSizes = {0.01,0.1,1,10};
-    private double[] powerStepSizes = {5,10,50,100};
+    private double[] stepSizes = {0.00001, 0.00001,0.0001,0.001};
+    private double[] powerStepSizes = {10,50,100,500};
     private int stepIndex = 0;
     private boolean hasPressed = false;
     double fLeftPower = 0;
@@ -307,7 +307,7 @@ public class GlobalTuning extends OpMode {
                     flywheelMechanism.runPedroFlywheel(kP,kS,targetVelocity);
                 }
                 else{
-                    flywheelMechanism.runFlywheelPIDF(kP,kS,0);
+                    flywheelMechanism.runPedroFlywheel(kP,kS,0);
                 }
 
                 telemetry.addData("Current velocity", flywheelMechanism.getCurrentVelocity());
