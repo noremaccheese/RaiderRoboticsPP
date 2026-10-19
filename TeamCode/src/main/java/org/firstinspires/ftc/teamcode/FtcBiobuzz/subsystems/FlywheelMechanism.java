@@ -79,8 +79,6 @@ public class FlywheelMechanism {
         Controller ff = Controller.proportionalFeedforward(kV);
         Controller finalController = Controller.sum(proportional, ff);
         runFlywheelToPower(finalController.calculate(target,target- getCurrentVelocity()));
-
-
     }
 
 

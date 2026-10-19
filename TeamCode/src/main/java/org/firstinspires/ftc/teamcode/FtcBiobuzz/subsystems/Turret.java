@@ -16,17 +16,22 @@ public class Turret {
     double velocityX;
     double velocityY;
     double omega;
-    double hiveX= 0;
-    double hiveY = 0;
     double botX = 0;
     double botY = 0;
     double botHeading = 0;
-    double velocityKP = 0;
+    double velocityKV = 0;
     double positionKP = 0;
+
+    double HIVE_X= 0; //put in constants when done
+    double HIVE_Y = 0;
+    double OFFSET_X = 0;
+    double OFFSET_Y = 0;
+
 
     public Turret(Follower follower) {
         this.follower = follower;
     }
+
 
 
 
@@ -45,15 +50,23 @@ public class Turret {
     }
 
     private double deltaX(){
-        return hiveX - botX;
+        return HIVE_X - botX;
     }
     private double deltaY(){
-        return hiveY - botY;
+        return HIVE_Y - botY;
     }
 
     private double calculateVPerpendicular(){
         return (-deltaY() * velocityX) + (deltaX() * velocityY);
     }
+
+    private void offsetCorrection(){
+        velocityX = (velocityX*Math.cos(botHeading) + velocityX*Math.sin(botHeading)) + velocityX;
+        velocityY = (velocityY*Math.cos(botHeading) - velocityY*Math.sin(botHeading)) + velocityY;
+        botX = (botX*Math.cos(botHeading) + botX*Math.sin(botHeading)) + botX;
+        botY = (botY*Math.cos(botHeading) - botY*Math.sin(botHeading)) + botY;
+    }
+
 
     private double calculateDistance(){
         return Math.sqrt(velocityX*velocityX + velocityY*velocityY);
@@ -71,7 +84,8 @@ public class Turret {
     public void runTurret(){
         updatePose();
         updateVelocity();
-        Controller velocityProportional = Controller.proportional(velocityKP);
+        offsetCorrection();
+        Controller velocityFeedforward = Controller.proportionalFeedforward(velocityKV);
         Controller positionProportional = Controller.proportional(positionKP);
 
 
