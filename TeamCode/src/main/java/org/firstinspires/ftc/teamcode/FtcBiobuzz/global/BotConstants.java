@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.FtcBiobuzz.global;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImplEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -37,6 +38,7 @@ public class BotConstants {
     public static DcMotor INTAKE;
     public static DcMotor TRANSFER_MOTOR;
     public static CRServo INTAKE_SERVO;
+    public static CRServoImplEx TURRET_SERVO_1;
     public static final double CPR = 384.5 ; //put in motor cpr and wheel diameter
     public static final double DIAMETER = 4.094;
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
@@ -75,6 +77,7 @@ public class BotConstants {
         TRANSFER_MOTOR = h.get(DcMotor.class, "transferMotor");
 
         INTAKE_SERVO = h.get(CRServo.class, "intakeServo");
+        TURRET_SERVO_1 = h.get(CRServoImplEx.class, "turretServo1");
 
         INTAKE_SERVO.setDirection(CRServo.Direction.REVERSE);
         F_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);

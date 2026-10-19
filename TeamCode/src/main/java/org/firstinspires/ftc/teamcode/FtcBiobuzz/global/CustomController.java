@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.global;
 
-public class MotionController {
+public class CustomController {
 
     double controllerOutput = 0;
 
@@ -28,7 +28,7 @@ public class MotionController {
      */
 
 
-    public MotionController fullStateSpace(double curVelocity, double curAcceleration, double targetVelocity, double targetAcceleration){ //work in progress
+    public CustomController fullStateSpace(double curVelocity, double curAcceleration, double targetVelocity, double targetAcceleration){ //work in progress
         return this;
     }
 
