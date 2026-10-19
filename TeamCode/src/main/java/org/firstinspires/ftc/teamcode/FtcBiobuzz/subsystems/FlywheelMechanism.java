@@ -19,14 +19,12 @@ import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 
 public class FlywheelMechanism {
     BotConstants constants = new BotConstants();
-    VoltageCompensation voltageCompensation = new VoltageCompensation();
     double normalizedVelocity = 0;
 
 
 
     public void init(HardwareMap h){
         constants.initMotors(h);
-        voltageCompensation.init(h);
     }
 
     private double feedforward(double kV, double kS){
