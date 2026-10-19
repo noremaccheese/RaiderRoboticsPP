@@ -31,6 +31,9 @@ public class EncoderTest extends OpMode {
         telemetry.addData("x", pinpoint.getEncoderX());
         telemetry.addData("y", pinpoint.getEncoderY());
         telemetry.addData("heading", pinpoint.getHeading(AngleUnit.DEGREES));
+        telemetry.addData("Loop Time", pinpoint.getLoopTime());
+        telemetry.addData("Frequency", pinpoint.getFrequency());
+        telemetry.addData("Status", pinpoint.getDeviceStatus());
         telemetry.update();
     }
 }

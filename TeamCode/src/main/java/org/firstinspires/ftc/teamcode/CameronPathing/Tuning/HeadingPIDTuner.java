@@ -1,13 +1,19 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 
-@TeleOp
+//@TeleOp
 public class HeadingPIDTuner extends OpMode {
     private double kP = 0;
     private double kD = 0;
@@ -15,23 +21,18 @@ public class HeadingPIDTuner extends OpMode {
     private int stepIndex = 0;
     private boolean hasPressed = false;
 
-    HeadingPID pid = new HeadingPID();
-
-
-    private DcMotor fLeft;
-    private DcMotor fRight;
-    private DcMotor bLeft;
-    private DcMotor bRight;
+    HeadingPID pid = new HeadingPID(0,0);
+    BotConstants constants = new BotConstants();
 
     @Override
     public void init() {
-        fLeft = hardwareMap.get(DcMotor.class, "fLeft");
-        fRight = hardwareMap.get(DcMotor.class, "fRight");
-        bLeft = hardwareMap.get(DcMotor.class, "bLeft");
-        bRight = hardwareMap.get(DcMotor.class, "bRight");
+        F_LEFT = hardwareMap.get(DcMotorEx.class, "fLeft");
+        F_RIGHT = hardwareMap.get(DcMotorEx.class, "fRight");
+        B_LEFT = hardwareMap.get(DcMotorEx.class, "bLeft");
+        B_RIGHT = hardwareMap.get(DcMotorEx.class, "bRight");
 
-        fLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        bLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        F_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
+        B_LEFT.setDirection(DcMotorSimple.Direction.REVERSE);
 
         pid.init(hardwareMap);
         telemetry.addLine("Init complete");
@@ -66,20 +67,22 @@ public class HeadingPIDTuner extends OpMode {
             hasPressed= false;
         }
 
+        pid.setkP(kP);
+        pid.setkD(kD);
 
-        double fLeftPower = -pid.runPID(kP,kD,0);
-        double fRightPower = pid.runPID(kP,kD,0);
-        double bLeftPower = -pid.runPID(kP,kD,0);
-        double bRightPower = pid.runPID(kP,kD,0);
+        double pidValue = pid.runPID(0);
 
-
-
-        fLeft.setPower(fLeftPower);
-        fRight.setPower(fRightPower);
-        bLeft.setPower(bLeftPower);
-        bRight.setPower(bRightPower);
+        double fLeftPower = -pidValue;
+        double fRightPower = pidValue;
+        double bLeftPower = -pidValue;
+        double bRightPower = pidValue;
 
 
+
+        F_LEFT.setPower(fLeftPower);
+        F_RIGHT.setPower(fRightPower);
+        B_LEFT.setPower(bLeftPower);
+        B_RIGHT.setPower(bRightPower);
 
 
         telemetry.addData("kP", kP);

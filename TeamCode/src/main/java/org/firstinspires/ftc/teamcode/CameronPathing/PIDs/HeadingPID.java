@@ -1,38 +1,46 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.PIDs;
 
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 
 
 public class HeadingPID {
 
+    BotConstants constants = new BotConstants();
     ElapsedTime timer = new ElapsedTime();
-    private IMU imu;
+    private IMU imu = constants.imu;
     double error = 0;
     double lastError = error;
 
+    double kP;
+    double kD;
 
-    public void init(HardwareMap h){
-        imu = h.get(IMU.class, "imu");
-        IMU.Parameters parameters = new IMU.Parameters(
-                new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
-                        RevHubOrientationOnRobot.UsbFacingDirection.UP
-                )
-        );
 
-        imu.initialize(parameters);
-        imu.resetYaw();
+
+    public HeadingPID(double kP, double kD){
+        this.kP = kP;
+        this.kD = kD;
+    }
+    public void setkP(double kP){
+        this.kP = kP;
+    }
+
+    public void setkD(double kD){
+        this.kD = kD;
     }
 
 
-    public double runPID(double kP, double kD, double targetHeading){
+    public void init(HardwareMap h){
+        constants.initIMU(h);
+    }
+
+
+    public double runPID(double targetHeading){
         double curHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
         lastError = error;
         error = targetHeading - curHeading;
