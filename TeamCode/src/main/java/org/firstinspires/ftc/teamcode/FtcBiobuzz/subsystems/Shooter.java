@@ -12,11 +12,7 @@ import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 public class Shooter {
     FlywheelMechanism flywheel = new FlywheelMechanism();
     BotConstants constants = new BotConstants();
-    double targetVelocity = 2000;
-    double targetFlywheelVelocity = 0;
-    double transferPower = 0.8;
-    double intakePower = 0;
-    double servoPower = 0;
+    double intakePower, servoPower, transferPower, targetFlywheelVelocity, targetVelocity;
     double kV = 1;
 
 

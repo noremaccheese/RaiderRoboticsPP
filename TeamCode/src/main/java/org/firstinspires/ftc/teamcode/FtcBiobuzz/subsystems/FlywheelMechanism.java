@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
 
 public class FlywheelMechanism {
     BotConstants constants = new BotConstants();
-    double normalizedVelocity = 0;
+    double normalizedVelocity;
 
 
 
