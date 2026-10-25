@@ -111,4 +111,74 @@ public class HelperFunctions {
     }
 
 
+    public static class HIVE_POSE{
+        private final double redUpperX = 0, redUpperY = 0;
+        private final double redLowerX = 0, redLowerY = 0;
+        private final double blueUpperX = 0, blueUpperY = 0;
+        private final double blueLowerX = 0, blueLowerY = 0;
+
+
+        public enum HivePoses{
+            RED_UPPER,
+            RED_LOWER,
+            BLUE_UPPER,
+            BLUE_LOWER
+        }
+
+        HivePoses whichHive = HivePoses.BLUE_LOWER;
+
+
+        public HIVE_POSE(HivePoses whichHive){
+            this.whichHive = whichHive;
+
+        }
+
+        public double getPoseX(){
+            double x = 0;
+
+            if(whichHive == HivePoses.BLUE_LOWER){
+                x = blueLowerX;
+            }
+
+            if(whichHive == HivePoses.BLUE_UPPER){
+                x = blueUpperX;
+            }
+
+            if(whichHive == HivePoses.RED_LOWER){
+                x = redLowerX;
+            }
+
+            if(whichHive == HivePoses.RED_UPPER){
+                x = redUpperX;
+            }
+
+
+            return x;
+        }
+
+
+        public double getPosey(){
+            double y = 0;
+
+            if(whichHive == HivePoses.BLUE_LOWER){
+                y = blueLowerY;
+            }
+
+            if(whichHive == HivePoses.BLUE_UPPER){
+                y = blueUpperY;
+            }
+
+            if(whichHive == HivePoses.RED_LOWER){
+                y = redLowerY;
+            }
+
+            if(whichHive == HivePoses.RED_UPPER){
+                y = redUpperY;
+            }
+
+
+            return y;
+        }
+
+    }
 }

@@ -110,21 +110,32 @@ public class Turret {
     private double velocityCorrection(){
         return calculateTargetVelocity() - (calculateVPerpendicular()* flightTime(0,0)); // add in angle
     }
+
+
     public void init(HardwareMap h){
         constants.initMotors(h);
     }
-    public void runTurret(){
+
+    public double runFeedforward(){
         updateFollower();
         Controller velocityFeedforward = Controller.proportionalFeedforward(velocityKV);
-        Controller positionProportional = Controller.proportional(positionKP);
-
-
         double velocityValue = velocityFeedforward.calculate(velocityCorrection(), servoPosition(analogInput) - lastServoPosition);
+        lastServoPosition = servoPosition(analogInput);
+
+        return velocityValue;
+    }
+
+    public double runTurretToPosition(){
+        updateFollower();
+
+        Controller positionProportional = Controller.proportional(positionKP);
         double positionValue = positionProportional.calculate(calculateTargetPosition(), servoPosition(analogInput));
 
-        turretServo.setPower(Range.clip((velocityValue + positionValue),-1,1));
+        return positionValue;
+    }
 
-        lastServoPosition = servoPosition(analogInput);
+    public void runServo(double power){
+        turretServo.setPower(Range.clip((power),-1,1));
     }
 
 }
