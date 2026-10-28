@@ -1,19 +1,15 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FLYWHEEL_1;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FLYWHEEL_2;
-
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
 
 
 public class Shooter {
     FlywheelMechanism flywheel = new FlywheelMechanism();
     BotConstants constants = new BotConstants();
     double intakePower, servoPower, transferPower, targetFlywheelVelocity, targetVelocity;
-    double kV = 1;
 
 
 
@@ -50,14 +46,14 @@ public class Shooter {
 
             case IDLE:
                 targetFlywheelVelocity = 0;
-                transferPower = 0.5;
+                transferPower = 0;
                 intakePower = 0;
                 servoPower = 0;
                 break;
 
             case SPINNING_UP:
                 targetFlywheelVelocity = targetVelocity;
-                transferPower = 0.5;
+                transferPower = 0;
                 intakePower = 0;
                 servoPower = 0;
                 if(Math.abs(targetFlywheelVelocity- flywheelVelocity()) < 50){

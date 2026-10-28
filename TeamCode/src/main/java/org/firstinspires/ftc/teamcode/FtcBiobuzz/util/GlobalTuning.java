@@ -1,22 +1,22 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.global;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.util;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_FORWARD_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_FORWARD_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FLYWHEEL_1;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FLYWHEEL_2;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FLYWHEEL_CPR;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.tunerTypes;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.convertToRPM;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceX;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceY;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.DRIVE_FORWARD_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.DRIVE_FORWARD_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_1;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_2;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_CPR;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.HEADING_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.HEADING_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.STRAFE_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.STRAFE_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.tunerTypes;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.convertToRPM;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.curDistanceX;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.curDistanceY;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;

@@ -1,26 +1,40 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems;
 
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FLYWHEEL_1;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FLYWHEEL_2;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FLYWHEEL_CPR;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.MAX_FLYWHEEL_RPM;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.convertRPMToPower;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.convertToCPR;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.convertToRPM;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_1;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_2;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_CIRCUMFERENCE;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_CPR;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.MAX_FLYWHEEL_RPM;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.convertRPMToPower;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.convertToCPR;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.convertToRPM;
 
 import com.pedropathing.controllers.Controller;
+import com.pedropathing.follower.Follower;
+import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
 
 public class FlywheelMechanism {
     BotConstants constants = new BotConstants();
     double normalizedVelocity;
+    Follower follower;
+    CRServo turretServo;
+    AnalogInput analogInput;
 
+    public void initTurret(Follower follower, CRServo turretServo, AnalogInput analogInput) {
+        this.follower = follower;
+        this.turretServo = turretServo;
+        this.analogInput = analogInput;
+    }
+
+    Turret turret = new Turret(follower, turretServo, analogInput);
 
 
     public void init(HardwareMap h){
@@ -79,6 +93,19 @@ public class FlywheelMechanism {
         Controller ff = Controller.proportionalFeedforward(kV);
         Controller finalController = Controller.sum(proportional, ff);
         runFlywheelToPower(finalController.calculate(target,target- getCurrentVelocity()));
+    }
+
+
+
+
+    public double bestVelocity(){
+        double bestHoodAngle = 2*Math.atan2(turret.deltaY(), turret.deltaX());
+        double gravity = 9.8;
+        return Math.sqrt(2*gravity*turret.deltaY()* Math.sin(bestHoodAngle))/Math.sin(bestHoodAngle);
+    }
+
+    public double launchVelocity(double rpm){
+        return rpm * FLYWHEEL_CIRCUMFERENCE * (1/60); // in meters change to real circumference
     }
 
 

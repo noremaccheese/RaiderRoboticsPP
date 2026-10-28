@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.teleop;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.INTAKE;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.INTAKE_SERVO;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.TRANSFER_MOTOR;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.INTAKE;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.INTAKE_SERVO;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.TRANSFER_MOTOR;
 
 
 import com.pedropathing.drivetrain.DrivePowers;
@@ -12,7 +12,7 @@ import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.global;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.util;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 
 import java.util.ArrayList;
@@ -40,8 +39,8 @@ public class BotConstants {
     public static CRServo INTAKE_SERVO;
     public static CRServoImplEx TURRET_SERVO_1;
     public static final double CPR = 384.5 ; //put in motor cpr and wheel diameter
-    public static final double DIAMETER = 4.094;
-    public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
+    public static final double DRIVE_WHEEL_DIAMETER = 4.094;
+    public static final double DRIVE_WHEEL_CIRCUMFERENCE = Math.PI * DRIVE_WHEEL_DIAMETER;
     public  static IMU imu;
 
     public static final double STRAFE_KP = 0.04;
@@ -64,6 +63,7 @@ public class BotConstants {
     public static final double FLYWHEEL_KP = 0;
     public static final double FLYWHEEL_CPR = 28;
     public static final double FLYWHEEL_RPM = 6000;
+    public static final double FLYWHEEL_CIRCUMFERENCE = 0.1; // in meters change to real circumference
     public static final double DRIVE_RPM = 435;
 
     public void initMotors(HardwareMap h){

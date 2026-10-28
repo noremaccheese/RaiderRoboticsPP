@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.global;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.util;
 
 public class CustomController {
 

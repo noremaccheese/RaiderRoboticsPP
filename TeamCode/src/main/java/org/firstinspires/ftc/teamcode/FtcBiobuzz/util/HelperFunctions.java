@@ -1,15 +1,14 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.global;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.util;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.CIRCUMFERENCE;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.CPR;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.imu;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.DRIVE_WHEEL_CIRCUMFERENCE;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.CPR;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.imu;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
@@ -41,7 +40,7 @@ public class HelperFunctions {
 
     public static double getMotorDistance(double position){
         double revolutions = position/CPR;
-        double distance = CIRCUMFERENCE * revolutions;
+        double distance = DRIVE_WHEEL_CIRCUMFERENCE * revolutions;
 
         return distance;
 

@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.TURRET_SERVO_1;
-
 import com.pedropathing.controllers.Controller;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.math.Pose;
@@ -9,14 +7,13 @@ import com.pedropathing.math.Velocity;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
 
 public class Turret {
     Follower follower;
     BotConstants constants = new BotConstants();
-    double velocityX, velocityY, omega;
+    double velocityX, velocityY, omega = 0;
     double botX, botY, botHeading;
     double velocityKV = 0;
     double positionKP = 0;
@@ -29,23 +26,17 @@ public class Turret {
     double lastServoPosition;
 
 
-    public Turret(Follower follower) {
-        this.follower = follower;
-    }
-    public Turret(CRServo turretServo){
-        this.turretServo = turretServo;
-    }
-
-    public Turret(AnalogInput analogInput){
-        this.analogInput = analogInput;
-    }
-
-    public Turret(double offsetX, double offsetY){
+    public Turret setOffsets(double offsetX, double offsetY){
         this.offsetX = offsetX;
         this.offsetY = offsetY;
+        return this;
     }
 
-
+    public Turret(Follower follower, CRServo turretServo, AnalogInput analogInput) {
+        this.follower = follower;
+        this.turretServo = turretServo;
+        this.analogInput = analogInput;
+    }
 
 
     private void updateFollower(){
@@ -62,15 +53,16 @@ public class Turret {
         botY = pose.y();
         botHeading = pose.heading();
 
+
         offsetCorrection();
     }
 
 
 
-    private double deltaX(){
+    public double deltaX(){
         return HIVE_X - botX;
     }
-    private double deltaY(){
+    public double deltaY(){
         return HIVE_Y - botY;
     }
 
@@ -78,7 +70,7 @@ public class Turret {
         return (-deltaY() * velocityX) + (deltaX() * velocityY);
     }
 
-    private void offsetCorrection(){
+    public void offsetCorrection(){
         botX = (offsetX*Math.cos(botHeading) + offsetY*Math.sin(botHeading)) + botX;
         botY = (offsetX*Math.cos(botHeading) - offsetY*Math.sin(botHeading)) + botY;
     }
@@ -98,8 +90,18 @@ public class Turret {
         return Math.atan2(deltaX,deltaY);
     }
 
-    public double servoPosition(AnalogInput analogInput){
-        return (analogInput.getVoltage()/voltagePerRev) * (2 * Math.PI); //fix angle wrapping later
+    public double servoPosition(){
+        double radians = (analogInput.getVoltage()/voltagePerRev) * (2 * Math.PI);
+
+        if((radians - lastServoPosition) > 1){
+            radians += (Math.PI * 2);
+        }
+        else if((radians - lastServoPosition) < -1){
+            radians -= (Math.PI * 2);
+        }
+
+
+        return radians;
         //add in heading correction
     }
 
@@ -114,13 +116,16 @@ public class Turret {
 
     public void init(HardwareMap h){
         constants.initMotors(h);
+        lastServoPosition = servoPosition();
     }
 
     public double runFeedforward(){
         updateFollower();
         Controller velocityFeedforward = Controller.proportionalFeedforward(velocityKV);
-        double velocityValue = velocityFeedforward.calculate(velocityCorrection(), servoPosition(analogInput) - lastServoPosition);
-        lastServoPosition = servoPosition(analogInput);
+
+        double turretVelocity = servoPosition() - lastServoPosition;
+        double velocityValue = velocityFeedforward.calculate(velocityCorrection(), turretVelocity);
+        lastServoPosition = servoPosition();
 
         return velocityValue;
     }
@@ -129,13 +134,12 @@ public class Turret {
         updateFollower();
 
         Controller positionProportional = Controller.proportional(positionKP);
-        double positionValue = positionProportional.calculate(calculateTargetPosition(), servoPosition(analogInput));
+        double positionValue = positionProportional.calculate(calculateTargetPosition(), servoPosition());
+        lastServoPosition = servoPosition();
 
         return positionValue;
     }
 
-    public void runServo(double power){
-        turretServo.setPower(Range.clip((power),-1,1));
-    }
+
 
 }

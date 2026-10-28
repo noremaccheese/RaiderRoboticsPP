@@ -1,29 +1,25 @@
 package org.firstinspires.ftc.teamcode.CameronPathing;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_FORWARD_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_FORWARD_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_STRAFE_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.DRIVE_STRAFE_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.END_PATH_TOLERANCE;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FORWARD_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.FORWARD_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_TOLERANCE;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.STRAFE_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.END_PATH_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FORWARD_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FORWARD_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.HEADING_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.HEADING_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.HEADING_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.STRAFE_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.STRAFE_KP;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.ForwardPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.StrafePID;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions;
 
 public class Follower extends HelperFunctions {
     BotConstants constants = new BotConstants();

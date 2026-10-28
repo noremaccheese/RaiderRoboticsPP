@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceX;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceY;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.curDistanceX;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.curDistanceY;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 

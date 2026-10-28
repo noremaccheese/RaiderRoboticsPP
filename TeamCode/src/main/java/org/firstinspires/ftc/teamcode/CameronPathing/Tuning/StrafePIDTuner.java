@@ -2,21 +2,20 @@ package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
 
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.B_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_LEFT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.F_RIGHT;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KD;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants.HEADING_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions.curDistanceX;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.B_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.B_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.F_LEFT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.F_RIGHT;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.HEADING_KD;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.HEADING_KP;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.curDistanceX;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.StrafePID;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.BotConstants;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.global.HelperFunctions;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions;
 
 //@TeleOp
 public class StrafePIDTuner extends OpMode {
