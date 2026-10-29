@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem;
 
 
 import com.pedropathing.follower.Follower;
@@ -16,6 +16,7 @@ public class ShooterV2 {
     CRServo turretServo;
     AnalogInput analogInput;
 
+
     public ShooterV2(Follower follower, CRServo turretServo, AnalogInput analogInput) {
         this.follower = follower;
         this.turretServo = turretServo;
@@ -29,9 +30,14 @@ public class ShooterV2 {
     }
 
     ShooterState shooterState = ShooterState.IDLE;
-    Turret turret = new Turret(follower, turretServo, analogInput);
+    Turret turret = new Turret(turretServo, analogInput);
     FlywheelMechanism flywheel = new FlywheelMechanism();
+    ShooterSystem shooterSystem = new ShooterSystem();
 
+
+    public void init(){
+        shooterSystem.init(follower, turretServo,analogInput);
+    }
 
 
     public void runServo(){
@@ -139,6 +145,7 @@ public class ShooterV2 {
 
 
     public void periodic(Gamepad gamepad){
+        shooterSystem.updateFollower();
         if(gamepad.a){
             shooterState = ShooterState.SHOOTING;
         }

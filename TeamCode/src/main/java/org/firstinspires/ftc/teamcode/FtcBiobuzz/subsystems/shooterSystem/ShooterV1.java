@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
 
 
-public class Shooter {
+public class ShooterV1 {
     FlywheelMechanism flywheel = new FlywheelMechanism();
     BotConstants constants = new BotConstants();
     double intakePower, servoPower, transferPower, targetFlywheelVelocity, targetVelocity;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem;
 
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.AnalogInput;
@@ -16,7 +16,7 @@ public class Hood {
         this.analogInput = analogInput;
     }
 
-    Turret turret = new Turret(follower, turretServo, analogInput);
+    ShooterSystem shooterSystem = new ShooterSystem();
 
     public void calculateHoodAngel(boolean lowArc, double v){
         double scalar = 1;
@@ -24,8 +24,8 @@ public class Hood {
             scalar = -1;
         }
         hoodAngle = Math.atan(powerOf(v,2) + scalar *
-                Math.sqrt(powerOf(v,4) - 9.8 *(9.8 * powerOf(turret.deltaX(),2) + 2 * turret.deltaY() * powerOf(v,2))))
-                / 9.8 * turret.deltaX();
+                Math.sqrt(powerOf(v,4) - 9.8 *(9.8 * powerOf(shooterSystem.deltaX(),2) + 2 * shooterSystem.deltaY() * powerOf(v,2))))
+                / 9.8 * shooterSystem.deltaX();
 
     }
 

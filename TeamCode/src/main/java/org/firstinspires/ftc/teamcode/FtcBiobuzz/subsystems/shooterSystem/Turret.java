@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem;
 
 import com.pedropathing.controllers.Controller;
 import com.pedropathing.follower.Follower;
@@ -8,22 +8,37 @@ import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.AxonCR;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
 
 public class Turret {
     Follower follower;
     BotConstants constants = new BotConstants();
+    /*
     double velocityX, velocityY, omega = 0;
     double botX, botY, botHeading;
+
+     */
     double velocityKV = 0;
     double positionKP = 0;
+    CRServo servo;
+    AnalogInput analogInput;
+    public Turret(CRServo servo, AnalogInput analogInput){
+        this.servo = servo;
+        this.analogInput = analogInput;
+    }
 
+    AxonCR axonCR = new AxonCR(servo,analogInput);
+    ShooterSystem shooterSystem = new ShooterSystem();
+
+    /*
     double HIVE_X= 48, HIVE_Y = 60; //put in constants when done
     double offsetX = 0, offsetY = 0; //put in offsets later
     CRServo turretServo;
     AnalogInput analogInput;
     double voltagePerRev = 1;
     double lastServoPosition;
+
 
 
     public Turret setOffsets(double offsetX, double offsetY){
@@ -113,29 +128,28 @@ public class Turret {
         return calculateTargetVelocity() - (calculateVPerpendicular()* flightTime(0,0)); // add in angle
     }
 
+     */
+
 
     public void init(HardwareMap h){
         constants.initMotors(h);
-        lastServoPosition = servoPosition();
     }
 
     public double runFeedforward(){
-        updateFollower();
         Controller velocityFeedforward = Controller.proportionalFeedforward(velocityKV);
 
-        double turretVelocity = servoPosition() - lastServoPosition;
-        double velocityValue = velocityFeedforward.calculate(velocityCorrection(), turretVelocity);
-        lastServoPosition = servoPosition();
+        double turretVelocity = axonCR.servoVelocity();
+        double velocityValue = velocityFeedforward.calculate(shooterSystem.velocityCorrection(), turretVelocity);
+        axonCR.updateLastPosition();
 
         return velocityValue;
     }
 
     public double runTurretToPosition(){
-        updateFollower();
 
         Controller positionProportional = Controller.proportional(positionKP);
-        double positionValue = positionProportional.calculate(calculateTargetPosition(), servoPosition());
-        lastServoPosition = servoPosition();
+        double positionValue = positionProportional.calculate(shooterSystem.calculateTargetPosition(), axonCR.servoPosition());
+        axonCR.updateLastPosition();
 
         return positionValue;
     }

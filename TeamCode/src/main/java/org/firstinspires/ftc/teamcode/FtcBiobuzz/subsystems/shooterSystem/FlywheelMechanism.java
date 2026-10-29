@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem;
 
 
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_1;
@@ -34,7 +34,7 @@ public class FlywheelMechanism {
         this.analogInput = analogInput;
     }
 
-    Turret turret = new Turret(follower, turretServo, analogInput);
+    ShooterSystem shooterSystem = new ShooterSystem();
 
 
     public void init(HardwareMap h){
@@ -99,9 +99,9 @@ public class FlywheelMechanism {
 
 
     public double bestVelocity(){
-        double bestHoodAngle = 2*Math.atan2(turret.deltaY(), turret.deltaX());
+        double bestHoodAngle = 2*Math.atan2(shooterSystem.deltaY(), shooterSystem.deltaX());
         double gravity = 9.8;
-        return Math.sqrt(2*gravity*turret.deltaY()* Math.sin(bestHoodAngle))/Math.sin(bestHoodAngle);
+        return Math.sqrt(2*gravity*shooterSystem.deltaY()* Math.sin(bestHoodAngle))/Math.sin(bestHoodAngle);
     }
 
     public double launchVelocity(double rpm){

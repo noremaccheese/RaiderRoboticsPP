@@ -26,7 +26,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.ForwardPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.HeadingPID;
 import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.StrafePID;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.FlywheelMechanism;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem.FlywheelMechanism;
 
 import java.util.Objects;
 

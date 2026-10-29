@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem.ShooterV1;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 @TeleOp
@@ -23,7 +23,7 @@ public class FoundationTeleop extends OpMode {
     boolean hasPressed = false;
     private Follower follower;
     private BotConstants constants = new BotConstants();
-    private Shooter shooter = new Shooter();
+    private ShooterV1 shooter = new ShooterV1();
     double intakePower = 0;
     double transferPower = 0;
     private double[] stepSizes = {5,10,50,100};
