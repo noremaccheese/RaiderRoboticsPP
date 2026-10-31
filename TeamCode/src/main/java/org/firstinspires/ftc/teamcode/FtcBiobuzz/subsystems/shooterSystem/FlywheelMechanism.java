@@ -20,6 +20,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo;
 
 public class FlywheelMechanism {
     BotConstants constants = new BotConstants();
@@ -34,7 +35,8 @@ public class FlywheelMechanism {
         this.analogInput = analogInput;
     }
 
-    ShooterSystem shooterSystem = new ShooterSystem();
+    OdoInfo info = new OdoInfo();
+
 
 
     public void init(HardwareMap h){
@@ -96,17 +98,6 @@ public class FlywheelMechanism {
     }
 
 
-
-
-    public double bestVelocity(){
-        double bestHoodAngle = 2*Math.atan2(shooterSystem.deltaY(), shooterSystem.deltaX());
-        double gravity = 9.8;
-        return Math.sqrt(2*gravity*shooterSystem.deltaY()* Math.sin(bestHoodAngle))/Math.sin(bestHoodAngle);
-    }
-
-    public double launchVelocity(double rpm){
-        return rpm * FLYWHEEL_CIRCUMFERENCE * (1/60); // in meters change to real circumference
-    }
 
 
 }

@@ -32,11 +32,9 @@ public class ShooterV2 {
     ShooterState shooterState = ShooterState.IDLE;
     Turret turret = new Turret(turretServo, analogInput);
     FlywheelMechanism flywheel = new FlywheelMechanism();
-    ShooterSystem shooterSystem = new ShooterSystem();
 
 
     public void init(){
-        shooterSystem.init(follower, turretServo,analogInput);
     }
 
 
@@ -61,7 +59,7 @@ public class ShooterV2 {
 
     private void spinUpFlywheel(){
         flywheel.initTurret(follower, turretServo, analogInput);
-        flywheel.runPedroFlywheel(0.0015,0.0002, flywheel.bestVelocity());
+        flywheel.runPedroFlywheel(0.0015,0.0002, 0);
     }
 
     private void setHoodAngle(){
@@ -145,7 +143,6 @@ public class ShooterV2 {
 
 
     public void periodic(Gamepad gamepad){
-        shooterSystem.updateFollower();
         if(gamepad.a){
             shooterState = ShooterState.SHOOTING;
         }
