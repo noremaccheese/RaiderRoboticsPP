@@ -1,6 +1,8 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.shooterMath;
 
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_CIRCUMFERENCE;
+
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo;
 
 public class ProjectileMath {
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.shooterMath;
 
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo.BOT_HEADING;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo.BOT_X;
@@ -6,6 +6,8 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo.BOT_Y;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo.OMEGA;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo.VELOCITY_X;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo.VELOCITY_Y;
+
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo;
 
 public class TurretSOTM {
 
@@ -31,15 +33,13 @@ public class TurretSOTM {
     }
 
 
-    public double calculateDistance(){
-        return Math.max(Math.hypot(info.hiveDX(), info.hiveDY()), 1);
-    }
+
 
 
 
 
     public double calculateTargetVelocity(){
-        return -(OMEGA + (calculateVPerpendicular()/calculateDistance()));
+        return -(OMEGA + (calculateVPerpendicular()/info.distanceToHive()));
     }
 
     public double calculateTargetPosition(){

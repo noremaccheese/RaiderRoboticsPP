@@ -43,4 +43,8 @@ public class OdoInfo {
     public double hiveDY(){
         return HIVE_Y - BOT_Y;
     }
+
+    public double distanceToHive(){
+        return Math.max(Math.hypot(hiveDX(), hiveDY()), 1);
+    }
 }

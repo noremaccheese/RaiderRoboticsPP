@@ -5,6 +5,7 @@ public class InterpLUT {
     LinearInterpolation interpolator = new LinearInterpolation();
 
 
+    /* array format
     double[][] array =
             {
                     {0, 0},
@@ -13,13 +14,10 @@ public class InterpLUT {
                     {0, 0}
             };
 
-    double[][] flywheelPoses = // x rpm y distance
-            {
-                    {0, 0},
-                    {0, 0},
-                    {0, 0},
-                    {0, 0}
-            };
+
+
+     */
+
 
 
     public double interpolateLUT(double[][] lut, double x) {

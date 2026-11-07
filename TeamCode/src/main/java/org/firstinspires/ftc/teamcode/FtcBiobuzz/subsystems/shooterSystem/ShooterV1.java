@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.InterpLUT;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo;
 
 
 public class ShooterV1 {
@@ -11,6 +13,8 @@ public class ShooterV1 {
     BotConstants constants = new BotConstants();
     double intakePower, servoPower, transferPower, targetFlywheelVelocity, targetVelocity;
 
+    InterpLUT interpLUT = new InterpLUT();
+    OdoInfo info = new OdoInfo();
 
 
     public void setTargetVelocity(double targetVelocity){
@@ -115,6 +119,18 @@ public class ShooterV1 {
     }
     public double getServoPower(){
         return  servoPower;
+    }
+
+
+    public double targetFlywheelVelocity(){
+        double[][] velocityLUT =
+                {
+                        {0,0},
+                        {0,0},
+                        {0,0}
+                };
+
+        return interpLUT.interpolateLUT(velocityLUT, info.distanceToHive());
     }
 
 

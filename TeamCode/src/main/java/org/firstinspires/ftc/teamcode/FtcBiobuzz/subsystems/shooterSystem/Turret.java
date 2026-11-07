@@ -10,9 +10,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.AxonCR;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.shooterMath.TurretSOTM;
 
 public class Turret {
     Follower follower;
+    OdoInfo info = new OdoInfo();
     BotConstants constants = new BotConstants();
     /*
     double velocityX, velocityY, omega = 0;
@@ -29,7 +32,8 @@ public class Turret {
     }
 
     AxonCR axonCR = new AxonCR(servo,analogInput);
-    ShooterSystem shooterSystem = new ShooterSystem();
+    TurretSOTM turretSOTM = new TurretSOTM(0,0);
+    ShooterV1 shooterSystem = new ShooterV1();
 
     /*
     double HIVE_X= 48, HIVE_Y = 60; //put in constants when done
@@ -139,7 +143,7 @@ public class Turret {
         Controller velocityFeedforward = Controller.proportionalFeedforward(velocityKV);
 
         double turretVelocity = axonCR.servoVelocity();
-        double velocityValue = velocityFeedforward.calculate(shooterSystem.velocityCorrection(), turretVelocity);
+        double velocityValue = velocityFeedforward.calculate(turretSOTM.velocityCorrection(), turretVelocity);
         axonCR.updateLastPosition();
 
         return velocityValue;
@@ -148,7 +152,7 @@ public class Turret {
     public double runTurretToPosition(){
 
         Controller positionProportional = Controller.proportional(positionKP);
-        double positionValue = positionProportional.calculate(shooterSystem.calculateTargetPosition(), axonCR.servoPosition());
+        double positionValue = positionProportional.calculate(turretSOTM.calculateTargetPosition(), axonCR.servoPosition());
         axonCR.updateLastPosition();
 
         return positionValue;

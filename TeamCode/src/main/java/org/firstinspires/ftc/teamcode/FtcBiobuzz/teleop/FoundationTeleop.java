@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.INTAKE
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.TRANSFER_MOTOR;
 
 
+import com.pedropathing.api.PoseFactory;
 import com.pedropathing.drivetrain.DrivePowers;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.ManualDrive;
@@ -28,11 +29,15 @@ public class FoundationTeleop extends OpMode {
     double transferPower = 0;
     private double[] stepSizes = {5,10,50,100};
     private int stepIndex = 0;
+    private final PoseFactory poseFactory = PoseFactory.degrees();
+
+    private final Pose start = poseFactory.of(9, 8.75, 0);
 
 
     @Override
     public void init() {
         follower = Constants.create(hardwareMap);
+        follower.setPose(start);
         shooter.init(hardwareMap);
         constants.initMotors(hardwareMap);
         telemetry.addLine("Init complete");
@@ -40,6 +45,9 @@ public class FoundationTeleop extends OpMode {
 
     @Override
     public   void loop() {
+        follower.update();
+
+
         DrivePowers powers = ManualDrive.fieldCentric(
               -gamepad1.left_stick_y,
                 gamepad1.left_stick_x,
@@ -75,8 +83,6 @@ public class FoundationTeleop extends OpMode {
         }
 
 
-
-        follower.update();
         shooter.update(gamepad1);
 
         if(gamepad1.left_bumper){

@@ -28,8 +28,13 @@ public class EncoderTest extends OpMode {
     @Override
     public void loop() {
         pinpoint.update();
+
+
         telemetry.addData("x", pinpoint.getEncoderX());
         telemetry.addData("y", pinpoint.getEncoderY());
+        telemetry.addData("pose x", pinpoint.getPosX(DistanceUnit.INCH));
+        telemetry.addData("pose y", pinpoint.getPosY(DistanceUnit.INCH));
+
         telemetry.addData("heading", pinpoint.getHeading(AngleUnit.DEGREES));
         telemetry.addData("Loop Time", pinpoint.getLoopTime());
         telemetry.addData("Frequency", pinpoint.getFrequency());
