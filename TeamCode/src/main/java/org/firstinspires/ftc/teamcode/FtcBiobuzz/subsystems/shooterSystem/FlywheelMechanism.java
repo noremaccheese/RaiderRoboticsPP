@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem;
 
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_1;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_2;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_CIRCUMFERENCE;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_CPR;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.MAX_FLYWHEEL_RPM;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.convertRPMToPower;
@@ -11,32 +8,21 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.con
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.convertToRPM;
 
 import com.pedropathing.controllers.Controller;
-import com.pedropathing.follower.Follower;
-import com.qualcomm.robotcore.hardware.AnalogInput;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo;
 
 public class FlywheelMechanism {
     BotConstants constants = new BotConstants();
     double normalizedVelocity;
-    Follower follower;
-    CRServo turretServo;
-    AnalogInput analogInput;
+    DcMotorEx flywheel;
 
-    public void initTurret(Follower follower, CRServo turretServo, AnalogInput analogInput) {
-        this.follower = follower;
-        this.turretServo = turretServo;
-        this.analogInput = analogInput;
+    public FlywheelMechanism(DcMotorEx flywheel){
+        this.flywheel = flywheel;
     }
-
-    OdoInfo info = new OdoInfo();
-
 
 
     public void init(HardwareMap h){
@@ -50,7 +36,7 @@ public class FlywheelMechanism {
     private double proportional(double kP){
         return kP *  (normalizedVelocity - convertRPMToPower(
                 convertToRPM(
-                        ((FLYWHEEL_1.getVelocity() + FLYWHEEL_2.getVelocity())/2),
+                        flywheel.getVelocity(),
                         FLYWHEEL_CPR),
                 MAX_FLYWHEEL_RPM));
     }
@@ -66,28 +52,24 @@ public class FlywheelMechanism {
     }
 
     public void runFlywheelToPower(double targetPower){
-        FLYWHEEL_1.setPower(Range.clip(targetPower, -1,1));
-        FLYWHEEL_2.setPower(Range.clip(targetPower, -1,1));
+        flywheel.setPower(Range.clip(targetPower, -1,1));
     }
 
     public void runFlywheelToVelocity(double targetVelocity){
         targetVelocity = convertToCPR(targetVelocity,FLYWHEEL_CPR);
-        FLYWHEEL_1.setVelocity(targetVelocity);
-        FLYWHEEL_2.setVelocity(targetVelocity);
+        flywheel.setVelocity(targetVelocity);
     }
 
     public void runFlywheelPIDF(double kP, double f, double targetVelocity){
         PIDFCoefficients PIDF = new PIDFCoefficients(kP,0,0,f);
-        FLYWHEEL_1.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, PIDF);
-        FLYWHEEL_2.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, PIDF);
+        flywheel.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, PIDF);
 
 
-        FLYWHEEL_1.setVelocity(convertToCPR(targetVelocity,FLYWHEEL_CPR));
-        FLYWHEEL_2.setVelocity(convertToCPR(targetVelocity, FLYWHEEL_CPR));
+        flywheel.setVelocity(convertToCPR(targetVelocity,FLYWHEEL_CPR));
     }
 
     public double getCurrentVelocity(){
-        return convertToRPM(FLYWHEEL_1.getVelocity(), FLYWHEEL_CPR);
+        return convertToRPM(flywheel.getVelocity(), FLYWHEEL_CPR);
     }
 
     public void runPedroFlywheel(double kP, double kV, double target){ //kP 0.0015 kV 0.0002

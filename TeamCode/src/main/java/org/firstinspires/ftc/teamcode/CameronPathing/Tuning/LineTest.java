@@ -3,27 +3,28 @@ package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.curDistanceX;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions.curDistanceY;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
+import org.firstinspires.ftc.teamcode.CameronPathing.FollowerC;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions;
 
-@TeleOp
+@Disabled
 public class LineTest extends OpMode {
-    Follower follower = new Follower();
+    FollowerC followerC = new FollowerC();
     private boolean forward = true;
     private final double lineDistance = 24;
 
     public void runForwardPath(){
-        follower.runPath(0,lineDistance,0);
+        followerC.runPath(0,lineDistance,0);
     }
     public void runBackwardPath(){
-        follower.runPath(0,-lineDistance,0);
+        followerC.runPath(0,-lineDistance,0);
     }
 
     public void init(){
-        follower.init(hardwareMap);
+        followerC.init(hardwareMap);
         telemetry.addLine("init complete");
     }
 
@@ -36,22 +37,22 @@ public class LineTest extends OpMode {
             runBackwardPath();
         }
 
-        if (!follower.isBusy()){
-            follower.resetEncoders();
+        if (!followerC.isBusy()){
+            followerC.resetEncoders();
             forward = !forward;
         }
 
-        telemetry.addData("Heading", follower.getHeading());
-        telemetry.addData("Heading Error", follower.getHeadingError());
-        telemetry.addData("Is busy", follower.isBusy());
+        telemetry.addData("Heading", followerC.getHeading());
+        telemetry.addData("Heading Error", followerC.getHeadingError());
+        telemetry.addData("Is busy", followerC.isBusy());
         telemetry.addData("Current distance x", curDistanceX());
         telemetry.addData("Current distance y", curDistanceY());
-        telemetry.addData("Target distance x", follower.getTargetDistanceX());
-        telemetry.addData("Target distance y", follower.getTargetDistanceY());
-        telemetry.addData("fLeftDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.FL));
-        telemetry.addData("fRightDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.FR));
-        telemetry.addData("bLeftDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.BL));
-        telemetry.addData("bRightDistance", HelperFunctions.getMotorDistance(Follower.whichMotor.BR));
+        telemetry.addData("Target distance x", followerC.getTargetDistanceX());
+        telemetry.addData("Target distance y", followerC.getTargetDistanceY());
+        telemetry.addData("fLeftDistance", HelperFunctions.getMotorDistance(FollowerC.whichMotor.FL));
+        telemetry.addData("fRightDistance", HelperFunctions.getMotorDistance(FollowerC.whichMotor.FR));
+        telemetry.addData("bLeftDistance", HelperFunctions.getMotorDistance(FollowerC.whichMotor.BL));
+        telemetry.addData("bRightDistance", HelperFunctions.getMotorDistance(FollowerC.whichMotor.BR));
         telemetry.update();
     }
 }

@@ -2,15 +2,13 @@ package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem;
 
 import com.pedropathing.controllers.Controller;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.math.Pose;
-import com.pedropathing.math.Velocity;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.AxonCR;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.OdoInfo;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.shooterMath.TurretSOTM;
 
 public class Turret {
@@ -26,14 +24,16 @@ public class Turret {
     double positionKP = 0;
     CRServo servo;
     AnalogInput analogInput;
+    AxonCR axonCR;
     public Turret(CRServo servo, AnalogInput analogInput){
         this.servo = servo;
         this.analogInput = analogInput;
+        this.axonCR = new AxonCR(servo,analogInput);
     }
 
-    AxonCR axonCR = new AxonCR(servo,analogInput);
+
+
     TurretSOTM turretSOTM = new TurretSOTM(0,0);
-    ShooterV1 shooterSystem = new ShooterV1();
 
     /*
     double HIVE_X= 48, HIVE_Y = 60; //put in constants when done
@@ -140,6 +140,7 @@ public class Turret {
     }
 
     public double runFeedforward(){
+
         Controller velocityFeedforward = Controller.proportionalFeedforward(velocityKV);
 
         double turretVelocity = axonCR.servoVelocity();

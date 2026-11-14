@@ -7,10 +7,11 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.F_RIGH
 
 import com.pedropathing.controllers.Controller;
 import com.pedropathing.controllers.PIDController;
+import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
+import org.firstinspires.ftc.teamcode.CameronPathing.FollowerC;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.MathUtil;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.Vector2d;
@@ -29,20 +30,20 @@ public class Drivetrain {
 
 
 
-    public Drivetrain(boolean fieldCentric, Follower follower){
+    public Drivetrain(boolean fieldCentric){
         this.fieldCentric = fieldCentric;
-        this.follower = follower;
     }
 
 
-    public void init(HardwareMap h){
+    public void init(HardwareMap h, Follower follower){
         constants.initMotors(h);
         try {
-            targetHeading = follower.getHeading();
+            targetHeading = follower.pose().heading();
         }
         catch (NullPointerException e){
             targetHeading = 0;
         }
+        this.follower = follower;
     }
 
     public void setPowers(Vector2d driveVector, double rx){
@@ -114,7 +115,7 @@ public class Drivetrain {
         Vector2d driveVector = smoothDrive(new Vector2d(gamepad.left_stick_x, -gamepad.left_stick_y));
         double rx = gamepad.right_stick_x;
         if(rx > 0){
-            targetHeading = follower.getHeading();
+            targetHeading = follower.pose().heading();
         }
 
         double pidValue = headingPID(targetHeading, kP, kD);
@@ -129,7 +130,7 @@ public class Drivetrain {
         }
 
         if(fieldCentric){
-            driveVector = m.rotMatrix(driveVector, follower.getHeading());
+            driveVector = m.rotMatrix(driveVector, follower.pose().heading());
         }
 
 
@@ -140,7 +141,7 @@ public class Drivetrain {
 
     public double headingPID(double targetHeading, double kP, double kD){
         Controller controller = new PIDController(kP, 0, kD);
-        return controller.calculate(Math.toRadians(targetHeading), follower.getHeading()) * 100;
+        return controller.calculate(Math.toRadians(targetHeading), follower.pose().heading()) * 100;
     }
 
 }

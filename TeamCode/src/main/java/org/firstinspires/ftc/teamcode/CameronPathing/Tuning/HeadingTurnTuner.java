@@ -2,17 +2,17 @@ package org.firstinspires.ftc.teamcode.CameronPathing.Tuning;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
+import org.firstinspires.ftc.teamcode.CameronPathing.FollowerC;
 
 public class HeadingTurnTuner extends OpMode {
     private double scalar = 0;
     private boolean hasPressed = false;
     private double[] stepSizes = {0.001,0.01,0.1,1};
     private int stepIndex = 0;
-    Follower follower = new Follower();
+    FollowerC followerC = new FollowerC();
     @Override
     public void init() {
-        follower.init(hardwareMap);
+        followerC.init(hardwareMap);
         telemetry.addLine("Init complete");
     }
 
@@ -40,8 +40,8 @@ public class HeadingTurnTuner extends OpMode {
         if(!beingPressed){
             hasPressed = false;
         }
-        double targetHeading = follower.getHeading() + gamepad1.right_stick_x * scalar;
-        follower.runPath(0,0, targetHeading);
+        double targetHeading = followerC.getHeading() + gamepad1.right_stick_x * scalar;
+        followerC.runPath(0,0, targetHeading);
 
         telemetry.addData("Scalar", scalar);
         telemetry.addData("Step size", stepSizes[stepIndex]);

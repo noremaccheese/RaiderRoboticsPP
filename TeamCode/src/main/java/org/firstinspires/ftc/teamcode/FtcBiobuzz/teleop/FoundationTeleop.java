@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.teleop;
 
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_POLLEN;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.INTAKE;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.INTAKE_SERVO;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.TRANSFER_MOTOR;
-
 
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.drivetrain.DrivePowers;
@@ -24,7 +22,7 @@ public class FoundationTeleop extends OpMode {
     boolean hasPressed = false;
     private Follower follower;
     private BotConstants constants = new BotConstants();
-    private ShooterV1 shooter = new ShooterV1();
+    private ShooterV1 shooter = new ShooterV1(FLYWHEEL_POLLEN);
     double intakePower = 0;
     double transferPower = 0;
     private double[] stepSizes = {5,10,50,100};
@@ -104,8 +102,6 @@ public class FoundationTeleop extends OpMode {
 
 
         INTAKE.setPower(intakePower);
-        TRANSFER_MOTOR.setPower(transferPower);
-        INTAKE_SERVO.setPower(servoPower);
 
 
         Pose robotPose = follower.pose(); // returns a Pose object

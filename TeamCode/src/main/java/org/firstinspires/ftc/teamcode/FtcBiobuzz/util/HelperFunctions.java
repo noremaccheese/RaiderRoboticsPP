@@ -11,26 +11,26 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.imu;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
+import org.firstinspires.ftc.teamcode.CameronPathing.FollowerC;
 
 
 public class HelperFunctions {
 
 
-    public static double getMotorDistance(Follower.whichMotor whichMotor) {
+    public static double getMotorDistance(FollowerC.whichMotor whichMotor) {
         double motorDistance = 0;
-        if (whichMotor == Follower.whichMotor.FL) {
+        if (whichMotor == FollowerC.whichMotor.FL) {
             motorDistance = getMotorDistance(F_LEFT.getCurrentPosition());
         }
 
-        if (whichMotor == Follower.whichMotor.FR) {
+        if (whichMotor == FollowerC.whichMotor.FR) {
             motorDistance = getMotorDistance(F_RIGHT.getCurrentPosition());
         }
 
-        if (whichMotor == Follower.whichMotor.BL) {
+        if (whichMotor == FollowerC.whichMotor.BL) {
             motorDistance = getMotorDistance(B_LEFT.getCurrentPosition());
         }
-        if (whichMotor == Follower.whichMotor.BR) {
+        if (whichMotor == FollowerC.whichMotor.BR) {
             motorDistance = getMotorDistance(B_RIGHT.getCurrentPosition());
         }
 

@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.CameronPathing.PIDs.StrafePID;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.HelperFunctions;
 
-public class Follower extends HelperFunctions {
+public class FollowerC extends HelperFunctions {
     BotConstants constants = new BotConstants();
 
     public enum whichMotor{

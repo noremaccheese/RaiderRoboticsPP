@@ -4,23 +4,28 @@ package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem;
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
 public class ShooterV2 {
+    DcMotorEx flywheelMotor;
+    public ShooterV2(DcMotorEx flywheelMotor){
+        this.flywheelMotor = flywheelMotor;
+    }
 
     private double ffPower;
     private double pidPower;
 
-    Follower follower;
     CRServo turretServo;
-    AnalogInput analogInput;
 
+    Turret turret;
+    FlywheelMechanism flywheel;
 
     public ShooterV2(Follower follower, CRServo turretServo, AnalogInput analogInput) {
-        this.follower = follower;
         this.turretServo = turretServo;
-        this.analogInput = analogInput;
+        turret = new Turret(turretServo, analogInput);
+        flywheel = new FlywheelMechanism(flywheelMotor);
     }
 
 
@@ -29,9 +34,9 @@ public class ShooterV2 {
         IDLE
     }
 
+
+
     ShooterState shooterState = ShooterState.IDLE;
-    Turret turret = new Turret(turretServo, analogInput);
-    FlywheelMechanism flywheel = new FlywheelMechanism();
 
 
     public void init(){
@@ -58,7 +63,6 @@ public class ShooterV2 {
 
 
     private void spinUpFlywheel(){
-        flywheel.initTurret(follower, turretServo, analogInput);
         flywheel.runPedroFlywheel(0.0015,0.0002, 0);
     }
 

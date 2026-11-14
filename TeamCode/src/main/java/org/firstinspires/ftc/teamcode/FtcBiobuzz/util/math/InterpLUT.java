@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math;
 
+import org.apache.commons.math3.fitting.PolynomialCurveFitter;
+import org.apache.commons.math3.fitting.WeightedObservedPoints;
+
 public class InterpLUT {
 
     LinearInterpolation interpolator = new LinearInterpolation();
@@ -62,6 +65,27 @@ public class InterpLUT {
 
         return interpolator.interpolate(y1, y2, t);
     }
+
+    /*public void lineOfBestFit(){
+        final WeightedObservedPoints obs = new WeightedObservedPoints();
+        obs.add(-1.0, 2.021170021833143);
+        obs.add(-0.99, 2.221135431136975);
+        obs.add(-0.98, 2.09985277659314);
+        obs.add(-0.97, 2.0211192647627025);
+        obs.add(0.0, 0.0);
+        obs.add(0.97, -2.0211192647627025);
+        obs.add(0.98, -2.09985277659314);
+        obs.add(0.99, -2.221135431136975);
+        obs.add(1.0, -2.021170021833143);
+
+        // Create a 3rd-degree polynomial fitter
+        PolynomialCurveFitter fitter = PolynomialCurveFitter.create(3);
+
+        // Fit the polynomial
+        double[] coefficients = fitter.fit(obs);
+    }
+
+     */
 
 }
 

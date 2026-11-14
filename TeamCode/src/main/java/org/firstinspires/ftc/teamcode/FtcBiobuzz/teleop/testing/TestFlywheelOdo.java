@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.teleop;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.teleop.testing;
+
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_POLLEN;
 
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.follower.Follower;
@@ -6,9 +8,8 @@ import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem.FlywheelMechanism;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem.ShooterV1;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.OdoInfo;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 public class TestFlywheelOdo extends OpMode {
@@ -17,7 +18,7 @@ public class TestFlywheelOdo extends OpMode {
     private int stepIndex = 0;
     OdoInfo info = new OdoInfo();
     Follower follower;
-    ShooterV1 shooter = new ShooterV1();
+    ShooterV1 shooter = new ShooterV1(FLYWHEEL_POLLEN);
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
     private final Pose start = poseFactory.of(9, 8.75, 0);

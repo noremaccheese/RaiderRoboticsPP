@@ -1,10 +1,8 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.util;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.math.Pose;
 import com.pedropathing.math.Velocity;
-import com.qualcomm.robotcore.hardware.AnalogInput;
-import com.qualcomm.robotcore.hardware.CRServo;
 
 public class OdoInfo {
     Follower follower;

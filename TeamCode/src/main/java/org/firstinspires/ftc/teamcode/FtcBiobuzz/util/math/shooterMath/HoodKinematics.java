@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.shooterMath;
 
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo.VELOCITY_Y;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.OdoInfo.VELOCITY_Y;
 
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.MathUtil;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.OdoInfo;
 
 public class HoodKinematics {
 

@@ -4,9 +4,9 @@ import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.B_LEFT
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.B_RIGHT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.DRIVE_FORWARD_KD;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.DRIVE_FORWARD_KP;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_1;
-import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_2;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_CPR;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_NECTAR;
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_POLLEN;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.F_LEFT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.F_RIGHT;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.HEADING_KD;
@@ -36,7 +36,10 @@ public class GlobalTuning extends OpMode {
     HeadingPID headingPID = new HeadingPID(HEADING_KP,HEADING_KD);
     ForwardPID forwardPID = new ForwardPID(DRIVE_FORWARD_KP,DRIVE_FORWARD_KD);
     StrafePID strafePID = new StrafePID(STRAFE_KP,STRAFE_KD);
-    FlywheelMechanism flywheelMechanism = new FlywheelMechanism();
+    FlywheelMechanism flywheelPollen = new FlywheelMechanism(FLYWHEEL_POLLEN);
+
+    FlywheelMechanism flywheelNectar = new FlywheelMechanism(FLYWHEEL_NECTAR);
+
     BotConstants constants = new BotConstants();
 
     int tunerSelected = 0;
@@ -101,7 +104,9 @@ public class GlobalTuning extends OpMode {
         headingPID.init(hardwareMap);
         forwardPID.init(hardwareMap);
         strafePID.init(hardwareMap);
-        flywheelMechanism.init(hardwareMap);
+        flywheelPollen.init(hardwareMap);
+
+        flywheelNectar.init(hardwareMap);
 
         constants.initMotors(hardwareMap);
         constants.initIMU(hardwareMap);
@@ -195,6 +200,8 @@ public class GlobalTuning extends OpMode {
     public void loop() {
 
         controls();
+        FlywheelMechanism flywheel;
+
 
 
         switch (type){
@@ -289,29 +296,63 @@ public class GlobalTuning extends OpMode {
                 runHeadingPID = true;
                 break;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             case "FLYWHEEL_P+FF":
-                if(runFlywheel){
-                    flywheelMechanism.runFlywheelController(targetVelocity,kV,kS,kP);
+
+                if(gamepad1.guide){
+                    flywheel = flywheelNectar;
                 }
-                else{
-                    flywheelMechanism.runFlywheelController(0,kV,kS,kP);
+                else {
+                    flywheel = flywheelPollen;
                 }
 
-                telemetry.addData("Current velocity", convertToRPM((FLYWHEEL_1.getVelocity() + FLYWHEEL_2.getVelocity())/2,FLYWHEEL_CPR));
+                if(runFlywheel){
+                    flywheel.runFlywheelController(targetVelocity,kV,kS,kP);
+                }
+                else{
+                    flywheel.runFlywheelController(0,kV,kS,kP);
+                }
+
+                telemetry.addData("Current velocity", convertToRPM(flywheel.getCurrentVelocity(),FLYWHEEL_CPR));
                 telemetry.addData("Target velocity", targetVelocity);
 
                 break;
 
             case "FLYWHEEL_PIDF":
-                if(runFlywheel){
-                    flywheelMechanism.runPedroFlywheel(kP,kS,targetVelocity);
+
+                if(gamepad1.guide){
+                    flywheel = flywheelNectar;
                 }
-                else{
-                    flywheelMechanism.runPedroFlywheel(kP,kS,0);
+                else {
+                    flywheel = flywheelPollen;
                 }
 
-                telemetry.addData("Current velocity", flywheelMechanism.getCurrentVelocity());
+
+                if(runFlywheel){
+                    flywheel.runPedroFlywheel(kP,kS,targetVelocity);
+                }
+                else{
+                    flywheel.runPedroFlywheel(kP,kS,0);
+                }
+
+                telemetry.addData("Current velocity", flywheel.getCurrentVelocity());
                 telemetry.addData("Target velocity", targetVelocity);
+                telemetry.addData("which flywheel", flywheel);
 
                 break;
 

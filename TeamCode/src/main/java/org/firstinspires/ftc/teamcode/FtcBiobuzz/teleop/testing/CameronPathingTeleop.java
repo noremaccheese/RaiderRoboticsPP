@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.FtcBiobuzz.teleop;
+package org.firstinspires.ftc.teamcode.FtcBiobuzz.teleop.testing;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.CameronPathing.Follower;
+import org.firstinspires.ftc.teamcode.CameronPathing.FollowerC;
 
 public class CameronPathingTeleop extends OpMode {
-    Follower follower = new Follower();
+    FollowerC followerC = new FollowerC();
     private enum opmodeType{
         FIELD_CENTRIC,
         BOT_CENTRIC,
@@ -16,7 +16,7 @@ public class CameronPathingTeleop extends OpMode {
     double scalar = 1;
     @Override
     public void init() {
-        follower.init(hardwareMap);
+        followerC.init(hardwareMap);
     }
 
     @Override
@@ -42,13 +42,13 @@ public class CameronPathingTeleop extends OpMode {
         double y = gamepad1.left_stick_y;
         double rx = gamepad1.right_stick_x;
 
-        double targetHeading = follower.getHeading() + rx * scalar;
+        double targetHeading = followerC.getHeading() + rx * scalar;
 
         if(type == opmodeType.FIELD_CENTRIC){
-            follower.runManualDrive(x,y,targetHeading,false);
+            followerC.runManualDrive(x,y,targetHeading,false);
         }
         if(type == opmodeType.BOT_CENTRIC){
-            follower.runManualDrive(x,y,targetHeading,true);
+            followerC.runManualDrive(x,y,targetHeading,true);
         }
 
 

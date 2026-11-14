@@ -1,15 +1,25 @@
 package org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem;
 
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.InterpLUT;
-import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.math.OdoInfo;
+import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.OdoInfo;
 
 
 public class ShooterV1 {
-    FlywheelMechanism flywheel = new FlywheelMechanism();
+    DcMotorEx flywheelMotor;
+
+    FlywheelMechanism flywheel;
+
+    public ShooterV1(DcMotorEx flywheelMotor){
+        this.flywheelMotor = flywheelMotor;
+        this.flywheel = new FlywheelMechanism(flywheelMotor);
+
+    }
+
     BotConstants constants = new BotConstants();
     double intakePower, servoPower, transferPower, targetFlywheelVelocity, targetVelocity;
 

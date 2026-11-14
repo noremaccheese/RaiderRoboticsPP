@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.FtcBiobuzz.auto;
 
 
 
+import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.FLYWHEEL_POLLEN;
 import static org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants.INTAKE;
 
 
@@ -13,6 +14,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.interpolator.Interpolator;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -20,11 +22,11 @@ import org.firstinspires.ftc.teamcode.FtcBiobuzz.subsystems.shooterSystem.Shoote
 import org.firstinspires.ftc.teamcode.FtcBiobuzz.util.BotConstants;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
-
+@Autonomous
 public class TwoTipSoloRed extends OpMode {
     BotConstants botConstants = new BotConstants();
     Follower follower;
-    ShooterV1 shooter = new ShooterV1();
+    ShooterV1 shooter = new ShooterV1(FLYWHEEL_POLLEN);
 
     ElapsedTime timer = new ElapsedTime();
 
@@ -38,7 +40,7 @@ public class TwoTipSoloRed extends OpMode {
     private double waitTime = 0;
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
-    private final Pose start = poseFactory.of(64, 9, 90); // adjust as needed
+    private final Pose start = poseFactory.of(64, 9, 180); // adjust as needed
     private final Pose point1 = poseFactory.of(9, 9, 180);
     private final Pose point2 = poseFactory.of(45, 127, 90);
     private final Pose point2Control1 = poseFactory.of(13.3552, 66.7039, 0);
@@ -96,21 +98,18 @@ public class TwoTipSoloRed extends OpMode {
     private boolean timeHasPassed(double time){
         if(!timerHasRan){
             lastTime = timer.nanoseconds();
+            timerHasRan = true;
         }
 
 
-        if(timer.nanoseconds() - lastTime > time * 10e9){
-            return true;
-        }
-        else {
-            return false;
-        }
+
+        return timer.nanoseconds() - lastTime > time * 1e9;
 
     }
 
 
 
-    BotState state = BotState.START;
+    BotState state = BotState.PATH1 ;
     BotState nextState;
 
 
@@ -185,7 +184,10 @@ public class TwoTipSoloRed extends OpMode {
 
                 if(timeHasPassed(waitTime)){
                     state = nextState;
+                    timerHasRan = false;
                 }
+                
+
                 break;
 
         }
@@ -210,6 +212,8 @@ public class TwoTipSoloRed extends OpMode {
 
     @Override
     public void loop() {
+        follower.update();
+
         runAutoPath();
     }
 }
